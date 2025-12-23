@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BETINA'S Beauty - Meu Planner</title>
+    <link rel="icon" type="image/x-icon" href="Favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="Favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="Logo - Betina (Icone).png" alt="Betina Nails" class="logo-img">
+            </div>
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active" data-page="dashboard">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item" data-page="agenda">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Agenda</span>
+                </a>
+                <a href="#" class="nav-item" data-page="clientes">
+                    <i class="fas fa-users"></i>
+                    <span>Clientes</span>
+                </a>
+                <a href="#" class="nav-item" data-page="galeria">
+                    <i class="fas fa-images"></i>
+                    <span>Galeria</span>
+                </a>
+                <a href="#" class="nav-item" data-page="servicos">
+                    <i class="fas fa-spa"></i>
+                    <span>Serviços</span>
+                </a>
+                <a href="#" class="nav-item" data-page="notas">
+                    <i class="fas fa-sticky-note"></i>
+                    <span>Notas</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Buscar cliente, agendamento..." id="searchInput">
+                </div>
+                <div class="header-actions">
+                    <div class="notification-container">
+                        <button class="btn-notification" onclick="toggleNotifications()">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge" id="notificationBadge">0</span>
+                        </button>
+                        <div class="notifications-dropdown" id="notificationsDropdown">
+                            <div class="notifications-header">
+                                <h3>Notificações</h3>
+                                <button class="btn-clear-all" onclick="clearAllNotifications()">Limpar todas</button>
+                            </div>
+                            <div class="notifications-list" id="notificationsList">
+                                <p class="empty-notifications">Nenhuma notificação</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="user-profile-container">
+                        <div class="user-profile" onclick="toggleProfileDropdown()">
+                            <img src="https://ui-avatars.com/api/?name=Nail+Studio&background=6c5ce7&color=fff" alt="Profile" id="headerProfileImg">
+                            <span id="headerProfileName">Nail Designer</span>
+                            <i class="fas fa-chevron-down dropdown-arrow"></i>
+                        </div>
+                        <div class="profile-dropdown" id="profileDropdown">
+                            <div class="dropdown-header">
+                                <img src="https://ui-avatars.com/api/?name=Nail+Studio&background=6c5ce7&color=fff" alt="Profile" id="dropdownProfileImg">
+                                <div>
+                                    <strong id="dropdownProfileName">Nail Designer</strong>
+                                    <p id="dropdownProfileEmail">meuemail@email.com</p>
+                                </div>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item" onclick="openProfileSettingsModal()">
+                                <i class="fas fa-user-edit"></i>
+                                <span>Editar Perfil</span>
+                            </a>
+                            <a href="#" class="dropdown-item" onclick="openStudioSettingsModal()">
+                                <i class="fas fa-store"></i>
+                                <span>Configurações do Estúdio</span>
+                            </a>
+                            <a href="#" class="dropdown-item" onclick="openAppearanceModal()">
+                                <i class="fas fa-palette"></i>
+                                <span>Aparência</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item" onclick="exportAllData()">
+                                <i class="fas fa-download"></i>
+                                <span>Exportar Dados</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Pages Container -->
+            <div class="pages-container">
+                <!-- Dashboard Page -->
+                <section id="dashboard" class="page active">
+                    <div class="page-header">
+                        <h1>Dashboard</h1>
+                        <button class="btn-primary" onclick="openNewAppointmentModal()">
+                            <i class="fas fa-plus"></i> Novo Agendamento
+                        </button>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: #6c5ce7;">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="todayAppointments">0</h3>
+                                <p>Agendamentos Hoje</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: #8b7cf7;">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="totalClients">0</h3>
+                                <p>Total de Clientes</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: #5541d7;">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="monthRevenue">R$ 0</h3>
+                                <p>Receita do Mês</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: #a29bfe;">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="completedServices">0</h3>
+                                <p>Serviços Realizados</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-grid">
+                        <div class="upcoming-appointments card">
+                            <div class="card-header">
+                                <h2><i class="fas fa-clock"></i> Próximos Agendamentos</h2>
+                            </div>
+                            <div class="appointments-list" id="upcomingAppointmentsList">
+                                <!-- Appointments will be loaded here -->
+                            </div>
+                        </div>
+                        
+                        <div class="recent-notes card">
+                            <div class="card-header">
+                                <h2><i class="fas fa-sticky-note"></i> Notas Recentes</h2>
+                            </div>
+                            <div class="notes-list" id="recentNotesList">
+                                <!-- Notes will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Trends Section -->
+                    <div class="trends-section">
+                        <div class="card trends-card">
+                            <div class="card-header">
+                                <h2><i class="fas fa-fire"></i> Tendências 2025/2026</h2>
+                                <div class="trends-header-actions">
+                                    <span class="trends-badge">Hot</span>
+                                    <span class="trends-update">Atualizado automaticamente</span>
+                                </div>
+                            </div>
+                            <div class="trends-content">
+                                <div class="trends-grid" id="trendsGrid">
+                                    <!-- Trends will be loaded dynamically -->
+                                </div>
+                                <div class="trends-colors">
+                                    <h4><i class="fas fa-swatchbook"></i> Cores em Alta</h4>
+                                    <div class="color-swatches" id="trendColors">
+                                        <!-- Colors will be loaded dynamically -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Agenda Page -->
+                <section id="agenda" class="page">
+                    <div class="page-header">
+                        <h1>Agenda</h1>
+                        <button class="btn-primary" onclick="openNewAppointmentModal()">
+                            <i class="fas fa-plus"></i> Novo Agendamento
+                        </button>
+                    </div>
+                    
+                    <div class="calendar-container">
+                        <div class="calendar-header">
+                            <button class="btn-icon" onclick="changeMonth(-1)">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <h2 id="currentMonth">Dezembro 2024</h2>
+                            <button class="btn-icon" onclick="changeMonth(1)">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                        <div class="calendar-grid">
+                            <div class="calendar-weekdays">
+                                <span>Dom</span>
+                                <span>Seg</span>
+                                <span>Ter</span>
+                                <span>Qua</span>
+                                <span>Qui</span>
+                                <span>Sex</span>
+                                <span>Sáb</span>
+                            </div>
+                            <div class="calendar-days" id="calendarDays">
+                                <!-- Calendar days will be generated here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="day-appointments card">
+                        <div class="card-header">
+                            <h2><i class="fas fa-list"></i> Agendamentos do Dia: <span id="selectedDate">Selecione uma data</span></h2>
+                        </div>
+                        <div class="appointments-list" id="dayAppointmentsList">
+                            <p class="empty-message">Selecione uma data no calendário</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Clientes Page -->
+                <section id="clientes" class="page">
+                    <div class="page-header">
+                        <h1>Clientes</h1>
+                        <button class="btn-primary" onclick="openNewClientModal()">
+                            <i class="fas fa-plus"></i> Novo Cliente
+                        </button>
+                    </div>
+                    
+                    <div class="clients-grid" id="clientsGrid">
+                        <!-- Clients will be loaded here -->
+                    </div>
+                </section>
+
+                <!-- Galeria Page -->
+                <section id="galeria" class="page">
+                    <div class="page-header">
+                        <h1>Galeria de Trabalhos</h1>
+                        <button class="btn-primary" onclick="openNewPhotoModal()">
+                            <i class="fas fa-plus"></i> Adicionar Foto
+                        </button>
+                    </div>
+                    
+                    <div class="gallery-filters">
+                        <button class="filter-btn active" data-filter="all">Todos</button>
+                        <button class="filter-btn" data-filter="gel">Gel</button>
+                        <button class="filter-btn" data-filter="acrigel">Acrigel</button>
+                        <button class="filter-btn" data-filter="fibra">Fibra de Vidro</button>
+                        <button class="filter-btn" data-filter="nail-art">Nail Art</button>
+                        <button class="filter-btn" data-filter="manicure">Manicure</button>
+                    </div>
+                    
+                    <div class="gallery-grid" id="galleryGrid">
+                        <!-- Gallery items will be loaded here -->
+                    </div>
+                </section>
+
+                <!-- Serviços Page -->
+                <section id="servicos" class="page">
+                    <div class="page-header">
+                        <h1>Serviços</h1>
+                        <button class="btn-primary" onclick="openNewServiceModal()">
+                            <i class="fas fa-plus"></i> Novo Serviço
+                        </button>
+                    </div>
+                    
+                    <div class="services-list" id="servicesList">
+                        <!-- Services will be loaded here -->
+                    </div>
+                </section>
+
+                <!-- Notas Page -->
+                <section id="notas" class="page">
+                    <div class="page-header">
+                        <h1>Notas</h1>
+                        <button class="btn-primary" onclick="openNewNoteModal()">
+                            <i class="fas fa-plus"></i> Nova Nota
+                        </button>
+                    </div>
+                    
+                    <div class="notes-grid" id="notesGrid">
+                        <!-- Notes will be loaded here -->
+                    </div>
+                </section>
+
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <!-- New Appointment Modal -->
+    <div class="modal" id="appointmentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-calendar-plus"></i> Novo Agendamento</h2>
+                <button class="btn-close" onclick="closeModal('appointmentModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="appointmentForm" onsubmit="saveAppointment(event)">
+                <div class="form-group">
+                    <label for="appointmentClient">Cliente</label>
+                    <select id="appointmentClient" required>
+                        <option value="">Selecione um cliente</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="appointmentDate">Data</label>
+                        <input type="date" id="appointmentDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="appointmentTime">Horário</label>
+                        <input type="time" id="appointmentTime" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="appointmentService">Serviço</label>
+                    <select id="appointmentService" required>
+                        <option value="">Selecione um serviço</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="appointmentNotes">Observações</label>
+                    <textarea id="appointmentNotes" rows="3" placeholder="Anotações sobre o atendimento..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeModal('appointmentModal')">Cancelar</button>
+                    <button type="submit" class="btn-primary">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- New Client Modal -->
+    <div class="modal" id="clientModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-user-plus"></i> Novo Cliente</h2>
+                <button class="btn-close" onclick="closeModal('clientModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="clientForm" onsubmit="saveClient(event)">
+                <div class="form-group">
+                    <label for="clientName">Nome</label>
+                    <input type="text" id="clientName" required placeholder="Nome completo">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="clientPhone">Telefone</label>
+                        <input type="tel" id="clientPhone" required placeholder="(00) 00000-0000">
+                    </div>
+                    <div class="form-group">
+                        <label for="clientEmail">E-mail</label>
+                        <input type="email" id="clientEmail" placeholder="email@exemplo.com">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="clientBirthday">Data de Nascimento</label>
+                    <input type="date" id="clientBirthday">
+                </div>
+                <div class="form-group">
+                    <label for="clientNotes">Observações</label>
+                    <textarea id="clientNotes" rows="3" placeholder="Preferências, alergias, informações importantes..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeModal('clientModal')">Cancelar</button>
+                    <button type="submit" class="btn-primary">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- New Service Modal -->
+    <div class="modal" id="serviceModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-spa"></i> Novo Serviço</h2>
+                <button class="btn-close" onclick="closeModal('serviceModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="serviceForm" onsubmit="saveService(event)">
+                <div class="form-group">
+                    <label for="serviceName">Nome do Serviço</label>
+                    <input type="text" id="serviceName" required placeholder="Ex: Alongamento em Gel">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="servicePrice">Preço</label>
+                        <input type="number" id="servicePrice" required placeholder="150.00" step="0.01">
+                    </div>
+                    <div class="form-group">
+                        <label for="serviceDuration">Duração (min)</label>
+                        <input type="number" id="serviceDuration" required placeholder="90">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="serviceCategory">Categoria</label>
+                    <select id="serviceCategory" required>
+                        <option value="">Selecione</option>
+                        <option value="gel">Gel</option>
+                        <option value="acrigel">Acrigel</option>
+                        <option value="fibra">Fibra de Vidro</option>
+                        <option value="nail-art">Nail Art</option>
+                        <option value="manicure">Manicure</option>
+                        <option value="pedicure">Pedicure</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="serviceDescription">Descrição</label>
+                    <textarea id="serviceDescription" rows="3" placeholder="Descrição do serviço..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeModal('serviceModal')">Cancelar</button>
+                    <button type="submit" class="btn-primary">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- New Note Modal -->
+    <div class="modal" id="noteModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h2><i class="fas fa-sticky-note"></i> Nova Nota</h2>
+                <button class="btn-close" onclick="closeModal('noteModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="noteForm" onsubmit="saveNote(event)">
+                <div class="form-group">
+                    <label for="noteTitle">Título</label>
+                    <input type="text" id="noteTitle" required placeholder="Título da nota">
+                </div>
+                <div class="form-group">
+                    <label for="noteClient">Cliente (opcional)</label>
+                    <select id="noteClient">
+                        <option value="">Nota geral</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="noteColor">Cor</label>
+                    <div class="color-picker">
+                        <input type="radio" name="noteColor" value="#f8f8ff" id="color1" checked>
+                        <label for="color1" style="background: #f8f8ff; border: 1px solid #ddd;"></label>
+                        <input type="radio" name="noteColor" value="#f0f5ff" id="color2">
+                        <label for="color2" style="background: #f0f5ff;"></label>
+                        <input type="radio" name="noteColor" value="#f5f5f5" id="color3">
+                        <label for="color3" style="background: #f5f5f5;"></label>
+                        <input type="radio" name="noteColor" value="#fafafa" id="color4">
+                        <label for="color4" style="background: #fafafa;"></label>
+                        <input type="radio" name="noteColor" value="#f0f0ff" id="color5">
+                        <label for="color5" style="background: #f0f0ff;"></label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="noteContent">Conteúdo</label>
+                    <textarea id="noteContent" rows="8" placeholder="Escreva sua nota aqui..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="noteImages">Anexar Fotos</label>
+                    <div class="image-upload">
+                        <input type="file" id="noteImages" accept="image/*" multiple onchange="previewNoteImages(event)">
+                        <label for="noteImages" class="upload-label">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span>Clique para adicionar fotos</span>
+                        </label>
+                    </div>
+                    <div class="image-preview" id="noteImagePreview"></div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeModal('noteModal')">Cancelar</button>
+                    <button type="submit" class="btn-primary">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- New Photo Modal -->
+    <div class="modal" id="photoModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-image"></i> Adicionar Foto</h2>
+                <button class="btn-close" onclick="closeModal('photoModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="photoForm" onsubmit="savePhoto(event)">
+                <div class="form-group">
+                    <label for="photoFile">Foto</label>
+                    <div class="image-upload large">
+                        <input type="file" id="photoFile" accept="image/*" required onchange="previewPhoto(event)">
+                        <label for="photoFile" class="upload-label">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span>Clique para selecionar</span>
+                        </label>
+                    </div>
+                    <div class="photo-preview" id="photoPreview"></div>
+                </div>
+                <div class="form-group">
+                    <label for="photoClient">Cliente</label>
+                    <select id="photoClient">
+                        <option value="">Sem cliente vinculado</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="photoCategory">Categoria</label>
+                    <select id="photoCategory" required>
+                        <option value="">Selecione</option>
+                        <option value="gel">Gel</option>
+                        <option value="acrigel">Acrigel</option>
+                        <option value="fibra">Fibra de Vidro</option>
+                        <option value="nail-art">Nail Art</option>
+                        <option value="manicure">Manicure</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="photoDescription">Descrição</label>
+                    <textarea id="photoDescription" rows="2" placeholder="Descrição do trabalho..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeModal('photoModal')">Cancelar</button>
+                    <button type="submit" class="btn-primary">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Client Detail Modal -->
+    <div class="modal" id="clientDetailModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h2><i class="fas fa-user"></i> <span id="clientDetailName">Detalhes do Cliente</span></h2>
+                <button class="btn-close" onclick="closeModal('clientDetailModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="client-detail-content">
+                <div class="client-info-section">
+                    <h3>Informações</h3>
+                    <div id="clientDetailInfo"></div>
+                </div>
+                <div class="client-history-section">
+                    <h3>Histórico de Atendimentos</h3>
+                    <div id="clientHistory"></div>
+                </div>
+                <div class="client-notes-section">
+                    <h3>Notas do Cliente</h3>
+                    <div id="clientNotes"></div>
+                </div>
+                <div class="client-gallery-section">
+                    <h3>Galeria</h3>
+                    <div id="clientGallery"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Note Modal -->
+    <div class="modal" id="viewNoteModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h2 id="viewNoteTitle"></h2>
+                <button class="btn-close" onclick="closeModal('viewNoteModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="view-note-content" id="viewNoteContent"></div>
+        </div>
+    </div>
+
+    <!-- Profile Settings Modal -->
+    <div class="modal" id="profileSettingsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-user-edit"></i> Editar Perfil</h2>
+                <button class="btn-close" onclick="closeModal('profileSettingsModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="profileSettingsForm" onsubmit="saveProfileSettings(event)">
+                <div class="form-group">
+                    <label>Foto de Perfil</label>
+                    <div class="profile-photo-upload">
+                        <img src="https://ui-avatars.com/api/?name=Nail+Studio&background=6c5ce7&color=fff" alt="Profile" id="profilePhotoPreview">
+                        <div class="photo-upload-actions">
+                            <input type="file" id="profilePhotoInput" accept="image/*" onchange="previewProfilePhoto(event)">
+                            <label for="profilePhotoInput" class="btn-secondary">
+                                <i class="fas fa-camera"></i> Alterar Foto
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="profileName">Seu Nome</label>
+                    <input type="text" id="profileName" placeholder="Seu nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="profileEmail">E-mail</label>
+                    <input type="email" id="profileEmail" placeholder="seu@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="profilePhone">Telefone / WhatsApp</label>
+                    <input type="tel" id="profilePhone" placeholder="(00) 00000-0000">
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeModal('profileSettingsModal')">Cancelar</button>
+                    <button type="submit" class="btn-primary">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Studio Settings Modal -->
+    <div class="modal" id="studioSettingsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-store"></i> Configurações do Estúdio</h2>
+                <button class="btn-close" onclick="closeModal('studioSettingsModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="studioSettingsForm" onsubmit="saveStudioSettings(event)">
+                <div class="form-group">
+                    <label for="studioName">Nome do Estúdio</label>
+                    <input type="text" id="studioName" placeholder="Nail Studio" required>
+                </div>
+                <div class="form-group">
+                    <label for="studioSlogan">Slogan</label>
+                    <input type="text" id="studioSlogan" placeholder="Suas unhas em boas mãos">
+                </div>
+                <div class="form-group">
+                    <label for="studioAddress">Endereço</label>
+                    <textarea id="studioAddress" rows="2" placeholder="Rua, número, bairro, cidade"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="studioOpenTime">Horário de Abertura</label>
+                        <input type="time" id="studioOpenTime" value="09:00">
+                    </div>
+                    <div class="form-group">
+                        <label for="studioCloseTime">Horário de Fechamento</label>
+                        <input type="time" id="studioCloseTime" value="19:00">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="studioInstagram">Instagram</label>
+                    <div class="input-with-icon">
+                        <i class="fab fa-instagram"></i>
+                        <input type="text" id="studioInstagram" placeholder="@seuestudio">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeModal('studioSettingsModal')">Cancelar</button>
+                    <button type="submit" class="btn-primary">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Appearance Modal -->
+    <div class="modal" id="appearanceModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-palette"></i> Aparência</h2>
+                <button class="btn-close" onclick="closeModal('appearanceModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="appearanceForm" onsubmit="saveAppearance(event)">
+                <div class="form-group">
+                    <label>Cor Principal</label>
+                    <div class="theme-colors">
+                        <input type="radio" name="themeColor" value="#6c5ce7" id="theme1" checked>
+                        <label for="theme1" style="background: #6c5ce7;" title="Roxo Vibrante"></label>
+                        
+                        <input type="radio" name="themeColor" value="#9b59b6" id="theme2">
+                        <label for="theme2" style="background: #9b59b6;" title="Ametista"></label>
+                        
+                        <input type="radio" name="themeColor" value="#8e44ad" id="theme3">
+                        <label for="theme3" style="background: #8e44ad;" title="Roxo Profundo"></label>
+                        
+                        <input type="radio" name="themeColor" value="#a29bfe" id="theme4">
+                        <label for="theme4" style="background: #a29bfe;" title="Lilás Suave"></label>
+                        
+                        <input type="radio" name="themeColor" value="#b388ff" id="theme5">
+                        <label for="theme5" style="background: #b388ff;" title="Lavanda"></label>
+                        
+                        <input type="radio" name="themeColor" value="#7c4dff" id="theme6">
+                        <label for="theme6" style="background: #7c4dff;" title="Violeta Elétrico"></label>
+                        
+                        <input type="radio" name="themeColor" value="#d63384" id="theme7">
+                        <label for="theme7" style="background: #d63384;" title="Magenta"></label>
+                        
+                        <input type="radio" name="themeColor" value="#e040fb" id="theme8">
+                        <label for="theme8" style="background: #e040fb;" title="Pink Neon"></label>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeModal('appearanceModal')">Cancelar</button>
+                    <button type="submit" class="btn-primary">Aplicar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Operação realizada com sucesso!</span>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
