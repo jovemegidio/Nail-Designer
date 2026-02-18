@@ -34,9 +34,13 @@
                     <i class="fas fa-images"></i>
                     <span>Galeria</span>
                 </a>
+                <a href="https://www.instagram.com/nailbetinabalduti_/" target="_blank" class="nav-item nav-instagram">
+                    <i class="fab fa-instagram"></i>
+                    <span>Instagram</span>
+                </a>
                 <a href="#" class="nav-item" data-page="servicos">
                     <i class="fas fa-spa"></i>
-                    <span>Serviços</span>
+                    <span>ServiÃƒÂ§os</span>
                 </a>
                 <a href="#" class="nav-item" data-page="notas">
                     <i class="fas fa-sticky-note"></i>
@@ -61,26 +65,26 @@
                         </button>
                         <div class="notifications-dropdown" id="notificationsDropdown">
                             <div class="notifications-header">
-                                <h3>Notificações</h3>
+                                <h3>NotificaÃƒÂ§ÃƒÂµes</h3>
                                 <button class="btn-clear-all" onclick="clearAllNotifications()">Limpar todas</button>
                             </div>
                             <div class="notifications-list" id="notificationsList">
-                                <p class="empty-notifications">Nenhuma notificação</p>
+                                <p class="empty-notifications">Nenhuma notificaÃƒÂ§ÃƒÂ£o</p>
                             </div>
                         </div>
                     </div>
                     <div class="user-profile-container">
                         <div class="user-profile" onclick="toggleProfileDropdown()">
-                            <img src="https://ui-avatars.com/api/?name=Nail+Studio&background=6c5ce7&color=fff" alt="Profile" id="headerProfileImg">
-                            <span id="headerProfileName">Nail Designer</span>
+                            <img src="betina-profile.jpg" alt="Profile" id="headerProfileImg" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Betina&background=6c5ce7&color=fff&size=128'">
+                            <span id="headerProfileName">Betina</span>
                             <i class="fas fa-chevron-down dropdown-arrow"></i>
                         </div>
                         <div class="profile-dropdown" id="profileDropdown">
                             <div class="dropdown-header">
-                                <img src="https://ui-avatars.com/api/?name=Nail+Studio&background=6c5ce7&color=fff" alt="Profile" id="dropdownProfileImg">
+                                <img src="betina-profile.jpg" alt="Profile" id="dropdownProfileImg" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Betina&background=6c5ce7&color=fff&size=128'">
                                 <div>
-                                    <strong id="dropdownProfileName">Nail Designer</strong>
-                                    <p id="dropdownProfileEmail">meuemail@email.com</p>
+                                    <strong id="dropdownProfileName">Betina</strong>
+                                    <p id="dropdownProfileEmail">@nailbetinabalduti_</p>
                                 </div>
                             </div>
                             <div class="dropdown-divider"></div>
@@ -90,11 +94,11 @@
                             </a>
                             <a href="#" class="dropdown-item" onclick="openStudioSettingsModal()">
                                 <i class="fas fa-store"></i>
-                                <span>Configurações do Estúdio</span>
+                                <span>ConfiguraÃƒÂ§ÃƒÂµes do EstÃƒÂºdio</span>
                             </a>
                             <a href="#" class="dropdown-item" onclick="openAppearanceModal()">
                                 <i class="fas fa-palette"></i>
-                                <span>Aparência</span>
+                                <span>AparÃƒÂªncia</span>
                             </a>
                             <div class="dropdown-divider"></div>
                             <a href="#" class="dropdown-item" onclick="exportAllData()">
@@ -142,7 +146,7 @@
                             </div>
                             <div class="stat-info">
                                 <h3 id="monthRevenue">R$ 0</h3>
-                                <p>Receita do Mês</p>
+                                <p>Receita do MÃƒÂªs</p>
                             </div>
                         </div>
                         <div class="stat-card">
@@ -151,7 +155,7 @@
                             </div>
                             <div class="stat-info">
                                 <h3 id="completedServices">0</h3>
-                                <p>Serviços Realizados</p>
+                                <p>ServiÃƒÂ§os Realizados</p>
                             </div>
                         </div>
                     </div>
@@ -159,7 +163,7 @@
                     <div class="dashboard-grid">
                         <div class="upcoming-appointments card">
                             <div class="card-header">
-                                <h2><i class="fas fa-clock"></i> Próximos Agendamentos</h2>
+                                <h2><i class="fas fa-clock"></i> PrÃƒÂ³ximos Agendamentos</h2>
                             </div>
                             <div class="appointments-list" id="upcomingAppointmentsList">
                                 <!-- Appointments will be loaded here -->
@@ -180,7 +184,7 @@
                     <div class="trends-section">
                         <div class="card trends-card">
                             <div class="card-header">
-                                <h2><i class="fas fa-fire"></i> Tendências 2025/2026</h2>
+                                <h2><i class="fas fa-fire"></i> TendÃƒÂªncias 2025/2026</h2>
                                 <div class="trends-header-actions">
                                     <span class="trends-badge">Hot</span>
                                     <span class="trends-update">Atualizado automaticamente</span>
@@ -199,7 +203,31 @@
                             </div>
                         </div>
                     </div>
-                </section>
+                
+                    <!-- Instagram Feed Section -->
+                    <div class="instagram-section">
+                        <div class="card instagram-card">
+                            <div class="card-header">
+                                <h2><i class="fab fa-instagram"></i> Instagram @nailbetinabalduti_</h2>
+                                <div class="instagram-header-actions">
+                                    <a href="https://www.instagram.com/nailbetinabalduti_/" target="_blank" class="btn-instagram-follow">
+                                        <i class="fab fa-instagram"></i> Seguir
+                                    </a>
+                                    <button class="btn-icon" onclick="refreshInstagramFeed()" title="Atualizar">
+                                        <i class="fas fa-sync-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="instagram-feed-grid" id="instagramFeedGrid">
+                                <!-- Instagram posts will be loaded here -->
+                            </div>
+                            <div class="instagram-cta">
+                                <a href="https://www.instagram.com/nailbetinabalduti_/" target="_blank" class="btn-view-instagram">
+                                    <i class="fab fa-instagram"></i> Ver mais no Instagram
+                                </a>
+                            </div>
+                        </div>
+                    </div></section>
 
                 <!-- Agenda Page -->
                 <section id="agenda" class="page">
@@ -228,7 +256,7 @@
                                 <span>Qua</span>
                                 <span>Qui</span>
                                 <span>Sex</span>
-                                <span>Sáb</span>
+                                <span>SÃƒÂ¡b</span>
                             </div>
                             <div class="calendar-days" id="calendarDays">
                                 <!-- Calendar days will be generated here -->
@@ -241,7 +269,7 @@
                             <h2><i class="fas fa-list"></i> Agendamentos do Dia: <span id="selectedDate">Selecione uma data</span></h2>
                         </div>
                         <div class="appointments-list" id="dayAppointmentsList">
-                            <p class="empty-message">Selecione uma data no calendário</p>
+                            <p class="empty-message">Selecione uma data no calendÃƒÂ¡rio</p>
                         </div>
                     </div>
                 </section>
@@ -264,6 +292,7 @@
                 <section id="galeria" class="page">
                     <div class="page-header">
                         <h1>Galeria de Trabalhos</h1>
+                        <a href="https://www.instagram.com/nailbetinabalduti_/" target="_blank" class="btn-instagram-gallery"><i class="fab fa-instagram"></i> @nailbetinabalduti_</a>
                         <button class="btn-primary" onclick="openNewPhotoModal()">
                             <i class="fas fa-plus"></i> Adicionar Foto
                         </button>
@@ -276,6 +305,7 @@
                         <button class="filter-btn" data-filter="fibra">Fibra de Vidro</button>
                         <button class="filter-btn" data-filter="nail-art">Nail Art</button>
                         <button class="filter-btn" data-filter="manicure">Manicure</button>
+                        <button class="filter-btn" data-filter="instagram"><i class="fab fa-instagram"></i> Instagram</button>
                     </div>
                     
                     <div class="gallery-grid" id="galleryGrid">
@@ -283,12 +313,12 @@
                     </div>
                 </section>
 
-                <!-- Serviços Page -->
+                <!-- ServiÃƒÂ§os Page -->
                 <section id="servicos" class="page">
                     <div class="page-header">
-                        <h1>Serviços</h1>
+                        <h1>ServiÃƒÂ§os</h1>
                         <button class="btn-primary" onclick="openNewServiceModal()">
-                            <i class="fas fa-plus"></i> Novo Serviço
+                            <i class="fas fa-plus"></i> Novo ServiÃƒÂ§o
                         </button>
                     </div>
                     
@@ -339,19 +369,19 @@
                         <input type="date" id="appointmentDate" required>
                     </div>
                     <div class="form-group">
-                        <label for="appointmentTime">Horário</label>
+                        <label for="appointmentTime">HorÃƒÂ¡rio</label>
                         <input type="time" id="appointmentTime" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="appointmentService">Serviço</label>
+                    <label for="appointmentService">ServiÃƒÂ§o</label>
                     <select id="appointmentService" required>
-                        <option value="">Selecione um serviço</option>
+                        <option value="">Selecione um serviÃƒÂ§o</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="appointmentNotes">Observações</label>
-                    <textarea id="appointmentNotes" rows="3" placeholder="Anotações sobre o atendimento..."></textarea>
+                    <label for="appointmentNotes">ObservaÃƒÂ§ÃƒÂµes</label>
+                    <textarea id="appointmentNotes" rows="3" placeholder="AnotaÃƒÂ§ÃƒÂµes sobre o atendimento..."></textarea>
                 </div>
                 <div class="form-actions">
                     <button type="button" class="btn-secondary" onclick="closeModal('appointmentModal')">Cancelar</button>
@@ -390,8 +420,8 @@
                     <input type="date" id="clientBirthday">
                 </div>
                 <div class="form-group">
-                    <label for="clientNotes">Observações</label>
-                    <textarea id="clientNotes" rows="3" placeholder="Preferências, alergias, informações importantes..."></textarea>
+                    <label for="clientNotes">ObservaÃƒÂ§ÃƒÂµes</label>
+                    <textarea id="clientNotes" rows="3" placeholder="PreferÃƒÂªncias, alergias, informaÃƒÂ§ÃƒÂµes importantes..."></textarea>
                 </div>
                 <div class="form-actions">
                     <button type="button" class="btn-secondary" onclick="closeModal('clientModal')">Cancelar</button>
@@ -405,23 +435,23 @@
     <div class="modal" id="serviceModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2><i class="fas fa-spa"></i> Novo Serviço</h2>
+                <h2><i class="fas fa-spa"></i> Novo ServiÃƒÂ§o</h2>
                 <button class="btn-close" onclick="closeModal('serviceModal')">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             <form id="serviceForm" onsubmit="saveService(event)">
                 <div class="form-group">
-                    <label for="serviceName">Nome do Serviço</label>
+                    <label for="serviceName">Nome do ServiÃƒÂ§o</label>
                     <input type="text" id="serviceName" required placeholder="Ex: Alongamento em Gel">
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="servicePrice">Preço</label>
+                        <label for="servicePrice">PreÃƒÂ§o</label>
                         <input type="number" id="servicePrice" required placeholder="150.00" step="0.01">
                     </div>
                     <div class="form-group">
-                        <label for="serviceDuration">Duração (min)</label>
+                        <label for="serviceDuration">DuraÃƒÂ§ÃƒÂ£o (min)</label>
                         <input type="number" id="serviceDuration" required placeholder="90">
                     </div>
                 </div>
@@ -438,8 +468,8 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="serviceDescription">Descrição</label>
-                    <textarea id="serviceDescription" rows="3" placeholder="Descrição do serviço..."></textarea>
+                    <label for="serviceDescription">DescriÃƒÂ§ÃƒÂ£o</label>
+                    <textarea id="serviceDescription" rows="3" placeholder="DescriÃƒÂ§ÃƒÂ£o do serviÃƒÂ§o..."></textarea>
                 </div>
                 <div class="form-actions">
                     <button type="button" class="btn-secondary" onclick="closeModal('serviceModal')">Cancelar</button>
@@ -460,8 +490,8 @@
             </div>
             <form id="noteForm" onsubmit="saveNote(event)">
                 <div class="form-group">
-                    <label for="noteTitle">Título</label>
-                    <input type="text" id="noteTitle" required placeholder="Título da nota">
+                    <label for="noteTitle">TÃƒÂ­tulo</label>
+                    <input type="text" id="noteTitle" required placeholder="TÃƒÂ­tulo da nota">
                 </div>
                 <div class="form-group">
                     <label for="noteClient">Cliente (opcional)</label>
@@ -485,7 +515,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="noteContent">Conteúdo</label>
+                    <label for="noteContent">ConteÃƒÂºdo</label>
                     <textarea id="noteContent" rows="8" placeholder="Escreva sua nota aqui..."></textarea>
                 </div>
                 <div class="form-group">
@@ -546,8 +576,8 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="photoDescription">Descrição</label>
-                    <textarea id="photoDescription" rows="2" placeholder="Descrição do trabalho..."></textarea>
+                    <label for="photoDescription">DescriÃƒÂ§ÃƒÂ£o</label>
+                    <textarea id="photoDescription" rows="2" placeholder="DescriÃƒÂ§ÃƒÂ£o do trabalho..."></textarea>
                 </div>
                 <div class="form-actions">
                     <button type="button" class="btn-secondary" onclick="closeModal('photoModal')">Cancelar</button>
@@ -568,11 +598,11 @@
             </div>
             <div class="client-detail-content">
                 <div class="client-info-section">
-                    <h3>Informações</h3>
+                    <h3>InformaÃƒÂ§ÃƒÂµes</h3>
                     <div id="clientDetailInfo"></div>
                 </div>
                 <div class="client-history-section">
-                    <h3>Histórico de Atendimentos</h3>
+                    <h3>HistÃƒÂ³rico de Atendimentos</h3>
                     <div id="clientHistory"></div>
                 </div>
                 <div class="client-notes-section">
@@ -613,7 +643,7 @@
                 <div class="form-group">
                     <label>Foto de Perfil</label>
                     <div class="profile-photo-upload">
-                        <img src="https://ui-avatars.com/api/?name=Nail+Studio&background=6c5ce7&color=fff" alt="Profile" id="profilePhotoPreview">
+                        <img src="betina-profile.jpg" alt="Profile" id="profilePhotoPreview" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Betina&background=6c5ce7&color=fff&size=256'">
                         <div class="photo-upload-actions">
                             <input type="file" id="profilePhotoInput" accept="image/*" onchange="previewProfilePhoto(event)">
                             <label for="profilePhotoInput" class="btn-secondary">
@@ -646,31 +676,31 @@
     <div class="modal" id="studioSettingsModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2><i class="fas fa-store"></i> Configurações do Estúdio</h2>
+                <h2><i class="fas fa-store"></i> ConfiguraÃƒÂ§ÃƒÂµes do EstÃƒÂºdio</h2>
                 <button class="btn-close" onclick="closeModal('studioSettingsModal')">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             <form id="studioSettingsForm" onsubmit="saveStudioSettings(event)">
                 <div class="form-group">
-                    <label for="studioName">Nome do Estúdio</label>
+                    <label for="studioName">Nome do EstÃƒÂºdio</label>
                     <input type="text" id="studioName" placeholder="Nail Studio" required>
                 </div>
                 <div class="form-group">
                     <label for="studioSlogan">Slogan</label>
-                    <input type="text" id="studioSlogan" placeholder="Suas unhas em boas mãos">
+                    <input type="text" id="studioSlogan" placeholder="Suas unhas em boas mÃƒÂ£os">
                 </div>
                 <div class="form-group">
-                    <label for="studioAddress">Endereço</label>
-                    <textarea id="studioAddress" rows="2" placeholder="Rua, número, bairro, cidade"></textarea>
+                    <label for="studioAddress">EndereÃƒÂ§o</label>
+                    <textarea id="studioAddress" rows="2" placeholder="Rua, nÃƒÂºmero, bairro, cidade"></textarea>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="studioOpenTime">Horário de Abertura</label>
+                        <label for="studioOpenTime">HorÃƒÂ¡rio de Abertura</label>
                         <input type="time" id="studioOpenTime" value="09:00">
                     </div>
                     <div class="form-group">
-                        <label for="studioCloseTime">Horário de Fechamento</label>
+                        <label for="studioCloseTime">HorÃƒÂ¡rio de Fechamento</label>
                         <input type="time" id="studioCloseTime" value="19:00">
                     </div>
                 </div>
@@ -678,7 +708,7 @@
                     <label for="studioInstagram">Instagram</label>
                     <div class="input-with-icon">
                         <i class="fab fa-instagram"></i>
-                        <input type="text" id="studioInstagram" placeholder="@seuestudio">
+                        <input type="text" id="studioInstagram" value="@nailbetinabalduti_" placeholder="@seuestudio">
                     </div>
                 </div>
                 <div class="form-actions">
@@ -693,7 +723,7 @@
     <div class="modal" id="appearanceModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2><i class="fas fa-palette"></i> Aparência</h2>
+                <h2><i class="fas fa-palette"></i> AparÃƒÂªncia</h2>
                 <button class="btn-close" onclick="closeModal('appearanceModal')">
                     <i class="fas fa-times"></i>
                 </button>
@@ -712,13 +742,13 @@
                         <label for="theme3" style="background: #8e44ad;" title="Roxo Profundo"></label>
                         
                         <input type="radio" name="themeColor" value="#a29bfe" id="theme4">
-                        <label for="theme4" style="background: #a29bfe;" title="Lilás Suave"></label>
+                        <label for="theme4" style="background: #a29bfe;" title="LilÃƒÂ¡s Suave"></label>
                         
                         <input type="radio" name="themeColor" value="#b388ff" id="theme5">
                         <label for="theme5" style="background: #b388ff;" title="Lavanda"></label>
                         
                         <input type="radio" name="themeColor" value="#7c4dff" id="theme6">
-                        <label for="theme6" style="background: #7c4dff;" title="Violeta Elétrico"></label>
+                        <label for="theme6" style="background: #7c4dff;" title="Violeta ElÃƒÂ©trico"></label>
                         
                         <input type="radio" name="themeColor" value="#d63384" id="theme7">
                         <label for="theme7" style="background: #d63384;" title="Magenta"></label>
@@ -738,7 +768,7 @@
     <!-- Toast Notification -->
     <div class="toast" id="toast">
         <i class="fas fa-check-circle"></i>
-        <span id="toastMessage">Operação realizada com sucesso!</span>
+        <span id="toastMessage">OperaÃƒÂ§ÃƒÂ£o realizada com sucesso!</span>
     </div>
 
     <script src="app.js"></script>
