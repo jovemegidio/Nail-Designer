@@ -69,8 +69,8 @@ function initData() {
             data.notifications = [];
         }
     } else {
-        // Add sample data for first use
-        addSampleData();
+        // Primeira vez: inicializar dados vazios (sem mock)
+        saveData();
     }
     
     // Load settings
@@ -90,46 +90,6 @@ function saveData() {
 
 function saveSettings() {
     localStorage.setItem('nailStudioSettings', JSON.stringify(settings));
-}
-
-function addSampleData() {
-    // Sample Services
-    data.services = [
-        { id: 1, name: 'Alongamento em Gel', price: 150, duration: 120, category: 'gel', description: 'Alongamento completo com gel' },
-        { id: 2, name: 'Manutenção de Gel', price: 80, duration: 60, category: 'gel', description: 'Manutenção do alongamento em gel' },
-        { id: 3, name: 'Alongamento Acrigel', price: 180, duration: 150, category: 'acrigel', description: 'Alongamento com acrigel' },
-        { id: 4, name: 'Fibra de Vidro', price: 200, duration: 180, category: 'fibra', description: 'Alongamento com fibra de vidro' },
-        { id: 5, name: 'Nail Art', price: 50, duration: 30, category: 'nail-art', description: 'Decoração artística nas unhas' },
-        { id: 6, name: 'Manicure Simples', price: 35, duration: 45, category: 'manicure', description: 'Manicure tradicional' },
-        { id: 7, name: 'Esmaltação em Gel', price: 60, duration: 60, category: 'gel', description: 'Esmaltação com gel' }
-    ];
-
-    // Sample Clients
-    data.clients = [
-        { id: 1, name: 'Maria Silva', phone: '(11) 99999-1111', email: 'maria@email.com', birthday: '1990-05-15', notes: 'Prefere cores claras', createdAt: new Date().toISOString() },
-        { id: 2, name: 'Ana Santos', phone: '(11) 99999-2222', email: 'ana@email.com', birthday: '1985-08-22', notes: 'Alergia a acetona', createdAt: new Date().toISOString() },
-        { id: 3, name: 'Carla Oliveira', phone: '(11) 99999-3333', email: 'carla@email.com', birthday: '1995-12-10', notes: 'Gosta de nail art elaborada', createdAt: new Date().toISOString() }
-    ];
-
-    // Sample Appointments
-    const today = new Date();
-    data.appointments = [
-        { id: 1, clientId: 1, serviceId: 1, date: formatDate(today), time: '09:00', notes: '', status: 'scheduled' },
-        { id: 2, clientId: 2, serviceId: 2, date: formatDate(today), time: '11:00', notes: 'Trazer referência', status: 'scheduled' },
-        { id: 3, clientId: 3, serviceId: 5, date: formatDate(addDays(today, 1)), time: '14:00', notes: '', status: 'scheduled' }
-    ];
-
-    // Sample Notes
-    data.notes = [
-        { id: 1, title: 'Tendências 2024', content: 'Cores em alta: Nude rosé, Marsala, Verde esmeralda\n\nTécnicas populares:\n- French invertida\n- Degradê\n- Efeito marmorizado', color: '#f0f0ff', clientId: null, images: [], createdAt: new Date().toISOString() },
-        { id: 2, title: 'Lista de Compras', content: '- Gel construtor rosa\n- Esmalte em gel cor 45\n- Primer\n- Top coat matte\n- Lixa 100/180', color: '#f5f5f5', clientId: null, images: [], createdAt: new Date().toISOString() }
-    ];
-
-    // A galeria agora usa PORTFOLIO_PHOTOS fixo no código
-    // Fotos adicionadas pelo usuário são salvas aqui no LocalStorage
-    data.gallery = [];
-
-    saveData();
 }
 
 // ===== UTILITY FUNCTIONS =====
