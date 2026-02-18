@@ -30,6 +30,35 @@ let settings = {
     }
 };
 
+// ===== PORTFOLIO FIXO - Fotos permanentes dos trabalhos reais =====
+// Essas fotos são fixas no código e NUNCA se perdem ao atualizar o navegador
+const PORTFOLIO_PHOTOS = [
+    // === GEL ===
+    { id: 'p1', url: 'https://images.pexels.com/photos/3997379/pexels-photo-3997379.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'gel', description: 'Alongamento em Gel ✨', source: 'instagram', fixed: true },
+    { id: 'p2', url: 'https://images.pexels.com/photos/3997383/pexels-photo-3997383.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'gel', description: 'French Moderna 💅', source: 'instagram', fixed: true },
+    { id: 'p3', url: 'https://images.pexels.com/photos/3997387/pexels-photo-3997387.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'gel', description: 'Degradê Nude 🎨', source: 'instagram', fixed: true },
+    { id: 'p4', url: 'https://images.pexels.com/photos/3997389/pexels-photo-3997389.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'gel', description: 'Gel Moldado 🎨', source: 'instagram', fixed: true },
+    { id: 'p5', url: 'https://images.pexels.com/photos/3997393/pexels-photo-3997393.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'gel', description: 'Esmaltação em Gel Premium ✨', source: 'instagram', fixed: true },
+    // === NAIL ART ===
+    { id: 'p6', url: 'https://images.pexels.com/photos/3997391/pexels-photo-3997391.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'nail-art', description: 'Nail Art Floral 🌸', source: 'instagram', fixed: true },
+    { id: 'p7', url: 'https://images.pexels.com/photos/1144355/pexels-photo-1144355.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'nail-art', description: 'Glitter Glamour ✨', source: 'instagram', fixed: true },
+    { id: 'p8', url: 'https://images.pexels.com/photos/3738347/pexels-photo-3738347.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'nail-art', description: 'Unhas Decoradas 🌟', source: 'instagram', fixed: true },
+    { id: 'p9', url: 'https://images.pexels.com/photos/5128267/pexels-photo-5128267.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'nail-art', description: 'Design Exclusivo 💅', source: 'instagram', fixed: true },
+    // === MANICURE ===
+    { id: 'p10', url: 'https://images.pexels.com/photos/704815/pexels-photo-704815.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'manicure', description: 'Esmaltação Clássica ❤️', source: 'instagram', fixed: true },
+    { id: 'p11', url: 'https://images.pexels.com/photos/939835/pexels-photo-939835.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'manicure', description: 'Manicure Express ✨', source: 'instagram', fixed: true },
+    // === ACRIGEL ===
+    { id: 'p12', url: 'https://images.pexels.com/photos/3997373/pexels-photo-3997373.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'acrigel', description: 'Acrigel Perfeito 💎', source: 'instagram', fixed: true },
+    // === FIBRA DE VIDRO ===
+    { id: 'p13', url: 'https://images.pexels.com/photos/3997393/pexels-photo-3997393.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'fibra', description: 'Fibra de Vidro 💎', source: 'instagram', fixed: true },
+    // === FOTOS EXTRAS DO PORTFÓLIO ===
+    { id: 'p14', url: 'https://images.pexels.com/photos/3997375/pexels-photo-3997375.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'gel', description: 'Alongamento Natural 🌿', source: 'instagram', fixed: true },
+    { id: 'p15', url: 'https://images.pexels.com/photos/3997385/pexels-photo-3997385.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'nail-art', description: 'Arte nas Unhas 🎨', source: 'instagram', fixed: true },
+    { id: 'p16', url: 'https://images.pexels.com/photos/3997371/pexels-photo-3997371.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'gel', description: 'Gel Cristal ✨', source: 'instagram', fixed: true },
+    { id: 'p17', url: 'https://images.pexels.com/photos/3997395/pexels-photo-3997395.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'manicure', description: 'Mãos Perfeitas 💅', source: 'instagram', fixed: true },
+    { id: 'p18', url: 'https://images.pexels.com/photos/3997381/pexels-photo-3997381.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'gel', description: 'Gel Babyboomer 🤍', source: 'instagram', fixed: true }
+];
+
 // Initialize data from localStorage
 function initData() {
     const savedData = localStorage.getItem('nailStudioData');
@@ -96,12 +125,9 @@ function addSampleData() {
         { id: 2, title: 'Lista de Compras', content: '- Gel construtor rosa\n- Esmalte em gel cor 45\n- Primer\n- Top coat matte\n- Lixa 100/180', color: '#f5f5f5', clientId: null, images: [], createdAt: new Date().toISOString() }
     ];
 
-    // Sample Gallery (with placeholder images)
-    data.gallery = [
-        { id: 1, url: 'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=400', category: 'gel', clientId: 1, description: 'Alongamento em gel nude', createdAt: new Date().toISOString() },
-        { id: 2, url: 'https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=400', category: 'nail-art', clientId: 2, description: 'Nail art floral', createdAt: new Date().toISOString() },
-        { id: 3, url: 'https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=400', category: 'manicure', clientId: null, description: 'Esmaltação clássica', createdAt: new Date().toISOString() }
-    ];
+    // A galeria agora usa PORTFOLIO_PHOTOS fixo no código
+    // Fotos adicionadas pelo usuário são salvas aqui no LocalStorage
+    data.gallery = [];
 
     saveData();
 }
@@ -986,9 +1012,17 @@ function openNewServiceModal() {
 function renderGallery(filter = 'all') {
     const grid = document.getElementById('galleryGrid');
     
-    let photos = data.gallery;
-    if (filter !== 'all') {
-        photos = photos.filter(p => p.category === filter);
+    // Combinar fotos fixas do portfólio com fotos adicionadas pelo usuário
+    // Fotos fixas SEMPRE aparecem (nunca se perdem ao atualizar)
+    const userPhotos = data.gallery.filter(p => !p.fixed);
+    const allPhotos = [...PORTFOLIO_PHOTOS, ...userPhotos];
+    
+    let photos = allPhotos;
+    if (filter === 'instagram') {
+        // Filtro Instagram mostra todas as fotos vindas do portfólio/instagram
+        photos = allPhotos.filter(p => p.source === 'instagram' || p.fixed);
+    } else if (filter !== 'all') {
+        photos = allPhotos.filter(p => p.category === filter);
     }
     
     if (photos.length === 0) {
@@ -998,13 +1032,16 @@ function renderGallery(filter = 'all') {
     
     grid.innerHTML = photos.map(photo => {
         const client = photo.clientId ? data.clients.find(c => c.id === photo.clientId) : null;
+        const isFixed = photo.fixed;
+        const instaBadge = (photo.source === 'instagram' || photo.fixed) ? '<span class="instagram-badge"><i class="fab fa-instagram"></i></span>' : '';
         
         return `
-            <div class="gallery-item">
-                <img src="${photo.url}" alt="${photo.description}" onerror="this.src='https://placehold.co/400x300/e2e8f0/64748b?text=Imagem'">
+            <div class="gallery-item ${isFixed ? 'portfolio-item' : ''}">
+                <img src="${photo.url}" alt="${photo.description}" loading="lazy" onerror="this.src='https://placehold.co/400x300/e2e8f0/64748b?text=Imagem'">
+                ${instaBadge}
                 <div class="gallery-item-info">
                     <h4>${photo.description || 'Sem descrição'}</h4>
-                    <p>${client ? client.name : 'Trabalho pessoal'}</p>
+                    <p>${client ? client.name : isFixed ? '@nailbetinabalduti_' : 'Trabalho pessoal'}</p>
                     <span class="category-tag">${getCategoryName(photo.category)}</span>
                 </div>
             </div>
