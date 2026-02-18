@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BETINA'S Beauty - Meu Planner</title>
+    <title>Nails - Betina Balduti</title>
     <link rel="icon" type="image/x-icon" href="Favicon.ico">
     <link rel="shortcut icon" type="image/x-icon" href="Favicon.ico">
     <link rel="stylesheet" href="styles.css">
@@ -40,7 +40,7 @@
                 </a>
                 <a href="#" class="nav-item" data-page="servicos">
                     <i class="fas fa-spa"></i>
-                    <span>ServiüƒÂ§os</span>
+                    <span>Serviços</span>
                 </a>
                 <a href="#" class="nav-item" data-page="notas">
                     <i class="fas fa-sticky-note"></i>
@@ -65,11 +65,11 @@
                         </button>
                         <div class="notifications-dropdown" id="notificationsDropdown">
                             <div class="notifications-header">
-                                <h3>NotificaüƒÂ§üƒÂµes</h3>
+                                <h3>Notificações</h3>
                                 <button class="btn-clear-all" onclick="clearAllNotifications()">Limpar todas</button>
                             </div>
                             <div class="notifications-list" id="notificationsList">
-                                <p class="empty-notifications">Nenhuma notificaüƒÂ§üƒÂ£o</p>
+                                <p class="empty-notifications">Nenhuma notificação</p>
                             </div>
                         </div>
                     </div>
@@ -94,11 +94,11 @@
                             </a>
                             <a href="#" class="dropdown-item" onclick="openStudioSettingsModal()">
                                 <i class="fas fa-store"></i>
-                                <span>ConfiguraüƒÂ§üƒÂµes do EstüƒÂºdio</span>
+                                <span>Configurações do Estúdio</span>
                             </a>
                             <a href="#" class="dropdown-item" onclick="openAppearanceModal()">
                                 <i class="fas fa-palette"></i>
-                                <span>AparüƒÂªncia</span>
+                                <span>Aparência</span>
                             </a>
                             <div class="dropdown-divider"></div>
                             <a href="#" class="dropdown-item" onclick="exportAllData()">
@@ -146,7 +146,7 @@
                             </div>
                             <div class="stat-info">
                                 <h3 id="monthRevenue">R$ 0</h3>
-                                <p>Receita do MüƒÂªs</p>
+                                <p>Receita do Mês</p>
                             </div>
                         </div>
                         <div class="stat-card">
@@ -155,7 +155,7 @@
                             </div>
                             <div class="stat-info">
                                 <h3 id="completedServices">0</h3>
-                                <p>ServiüƒÂ§os Realizados</p>
+                                <p>Serviços Realizados</p>
                             </div>
                         </div>
                     </div>
@@ -163,7 +163,7 @@
                     <div class="dashboard-grid">
                         <div class="upcoming-appointments card">
                             <div class="card-header">
-                                <h2><i class="fas fa-clock"></i> PrüƒÂ³ximos Agendamentos</h2>
+                                <h2><i class="fas fa-clock"></i> Próximos Agendamentos</h2>
                             </div>
                             <div class="appointments-list" id="upcomingAppointmentsList">
                                 <!-- Appointments will be loaded here -->
@@ -184,7 +184,7 @@
                     <div class="trends-section">
                         <div class="card trends-card">
                             <div class="card-header">
-                                <h2><i class="fas fa-fire"></i> TendüƒÂªncias 2025/2026</h2>
+                                <h2><i class="fas fa-fire"></i> Tendências 2025/2026</h2>
                                 <div class="trends-header-actions">
                                     <span class="trends-badge">Hot</span>
                                     <span class="trends-update">Atualizado automaticamente</span>
@@ -256,7 +256,7 @@
                                 <span>Qua</span>
                                 <span>Qui</span>
                                 <span>Sex</span>
-                                <span>SüƒÂ¡b</span>
+                                <span>Sáb</span>
                             </div>
                             <div class="calendar-days" id="calendarDays">
                                 <!-- Calendar days will be generated here -->
@@ -269,7 +269,7 @@
                             <h2><i class="fas fa-list"></i> Agendamentos do Dia: <span id="selectedDate">Selecione uma data</span></h2>
                         </div>
                         <div class="appointments-list" id="dayAppointmentsList">
-                            <p class="empty-message">Selecione uma data no calendüƒÂ¡rio</p>
+                            <p class="empty-message">Selecione uma data no calendário</p>
                         </div>
                     </div>
                 </section>
@@ -313,12 +313,12 @@
                     </div>
                 </section>
 
-                <!-- ServiüƒÂ§os Page -->
+                <!-- Serviços Page -->
                 <section id="servicos" class="page">
                     <div class="page-header">
-                        <h1>ServiüƒÂ§os</h1>
+                        <h1>Serviços</h1>
                         <button class="btn-primary" onclick="openNewServiceModal()">
-                            <i class="fas fa-plus"></i> Novo ServiüƒÂ§o
+                            <i class="fas fa-plus"></i> Novo Serviço
                         </button>
                     </div>
                     
@@ -369,19 +369,19 @@
                         <input type="date" id="appointmentDate" required>
                     </div>
                     <div class="form-group">
-                        <label for="appointmentTime">HorüƒÂ¡rio</label>
+                        <label for="appointmentTime">Horário</label>
                         <input type="time" id="appointmentTime" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="appointmentService">ServiüƒÂ§o</label>
+                    <label for="appointmentService">Serviço</label>
                     <select id="appointmentService" required>
-                        <option value="">Selecione um serviüƒÂ§o</option>
+                        <option value="">Selecione um serviço</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="appointmentNotes">ObservaüƒÂ§üƒÂµes</label>
-                    <textarea id="appointmentNotes" rows="3" placeholder="AnotaüƒÂ§üƒÂµes sobre o atendimento..."></textarea>
+                    <label for="appointmentNotes">Observações</label>
+                    <textarea id="appointmentNotes" rows="3" placeholder="Anotações sobre o atendimento..."></textarea>
                 </div>
                 <div class="form-actions">
                     <button type="button" class="btn-secondary" onclick="closeModal('appointmentModal')">Cancelar</button>
@@ -420,8 +420,8 @@
                     <input type="date" id="clientBirthday">
                 </div>
                 <div class="form-group">
-                    <label for="clientNotes">ObservaüƒÂ§üƒÂµes</label>
-                    <textarea id="clientNotes" rows="3" placeholder="PreferüƒÂªncias, alergias, informaüƒÂ§üƒÂµes importantes..."></textarea>
+                    <label for="clientNotes">Observações</label>
+                    <textarea id="clientNotes" rows="3" placeholder="Preferências, alergias, informações importantes..."></textarea>
                 </div>
                 <div class="form-actions">
                     <button type="button" class="btn-secondary" onclick="closeModal('clientModal')">Cancelar</button>
@@ -435,23 +435,23 @@
     <div class="modal" id="serviceModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2><i class="fas fa-spa"></i> Novo ServiüƒÂ§o</h2>
+                <h2><i class="fas fa-spa"></i> Novo Serviço</h2>
                 <button class="btn-close" onclick="closeModal('serviceModal')">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             <form id="serviceForm" onsubmit="saveService(event)">
                 <div class="form-group">
-                    <label for="serviceName">Nome do ServiüƒÂ§o</label>
+                    <label for="serviceName">Nome do Serviço</label>
                     <input type="text" id="serviceName" required placeholder="Ex: Alongamento em Gel">
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="servicePrice">PreüƒÂ§o</label>
+                        <label for="servicePrice">Preço</label>
                         <input type="number" id="servicePrice" required placeholder="150.00" step="0.01">
                     </div>
                     <div class="form-group">
-                        <label for="serviceDuration">DuraüƒÂ§üƒÂ£o (min)</label>
+                        <label for="serviceDuration">Duração (min)</label>
                         <input type="number" id="serviceDuration" required placeholder="90">
                     </div>
                 </div>
@@ -468,8 +468,8 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="serviceDescription">DescriüƒÂ§üƒÂ£o</label>
-                    <textarea id="serviceDescription" rows="3" placeholder="DescriüƒÂ§üƒÂ£o do serviüƒÂ§o..."></textarea>
+                    <label for="serviceDescription">Descrição</label>
+                    <textarea id="serviceDescription" rows="3" placeholder="Descrição do serviço..."></textarea>
                 </div>
                 <div class="form-actions">
                     <button type="button" class="btn-secondary" onclick="closeModal('serviceModal')">Cancelar</button>
@@ -490,8 +490,8 @@
             </div>
             <form id="noteForm" onsubmit="saveNote(event)">
                 <div class="form-group">
-                    <label for="noteTitle">TüƒÂ­tulo</label>
-                    <input type="text" id="noteTitle" required placeholder="TüƒÂ­tulo da nota">
+                    <label for="noteTitle">Título</label>
+                    <input type="text" id="noteTitle" required placeholder="Título da nota">
                 </div>
                 <div class="form-group">
                     <label for="noteClient">Cliente (opcional)</label>
@@ -515,7 +515,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="noteContent">ConteüƒÂºdo</label>
+                    <label for="noteContent">Conteúdo</label>
                     <textarea id="noteContent" rows="8" placeholder="Escreva sua nota aqui..."></textarea>
                 </div>
                 <div class="form-group">
@@ -576,8 +576,8 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="photoDescription">DescriüƒÂ§üƒÂ£o</label>
-                    <textarea id="photoDescription" rows="2" placeholder="DescriüƒÂ§üƒÂ£o do trabalho..."></textarea>
+                    <label for="photoDescription">Descrição</label>
+                    <textarea id="photoDescription" rows="2" placeholder="Descrição do trabalho..."></textarea>
                 </div>
                 <div class="form-actions">
                     <button type="button" class="btn-secondary" onclick="closeModal('photoModal')">Cancelar</button>
@@ -598,11 +598,11 @@
             </div>
             <div class="client-detail-content">
                 <div class="client-info-section">
-                    <h3>InformaüƒÂ§üƒÂµes</h3>
+                    <h3>Informações</h3>
                     <div id="clientDetailInfo"></div>
                 </div>
                 <div class="client-history-section">
-                    <h3>HistüƒÂ³rico de Atendimentos</h3>
+                    <h3>Histórico de Atendimentos</h3>
                     <div id="clientHistory"></div>
                 </div>
                 <div class="client-notes-section">
@@ -676,31 +676,31 @@
     <div class="modal" id="studioSettingsModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2><i class="fas fa-store"></i> ConfiguraüƒÂ§üƒÂµes do EstüƒÂºdio</h2>
+                <h2><i class="fas fa-store"></i> Configurações do Estúdio</h2>
                 <button class="btn-close" onclick="closeModal('studioSettingsModal')">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             <form id="studioSettingsForm" onsubmit="saveStudioSettings(event)">
                 <div class="form-group">
-                    <label for="studioName">Nome do EstüƒÂºdio</label>
+                    <label for="studioName">Nome do Estúdio</label>
                     <input type="text" id="studioName" placeholder="Nail Studio" required>
                 </div>
                 <div class="form-group">
                     <label for="studioSlogan">Slogan</label>
-                    <input type="text" id="studioSlogan" placeholder="Suas unhas em boas müƒÂ£os">
+                    <input type="text" id="studioSlogan" placeholder="Suas unhas em boas mãos">
                 </div>
                 <div class="form-group">
-                    <label for="studioAddress">EndereüƒÂ§o</label>
-                    <textarea id="studioAddress" rows="2" placeholder="Rua, nüƒÂºmero, bairro, cidade"></textarea>
+                    <label for="studioAddress">Endereço</label>
+                    <textarea id="studioAddress" rows="2" placeholder="Rua, número, bairro, cidade"></textarea>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="studioOpenTime">HorüƒÂ¡rio de Abertura</label>
+                        <label for="studioOpenTime">Horário de Abertura</label>
                         <input type="time" id="studioOpenTime" value="09:00">
                     </div>
                     <div class="form-group">
-                        <label for="studioCloseTime">HorüƒÂ¡rio de Fechamento</label>
+                        <label for="studioCloseTime">Horário de Fechamento</label>
                         <input type="time" id="studioCloseTime" value="19:00">
                     </div>
                 </div>
@@ -723,7 +723,7 @@
     <div class="modal" id="appearanceModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2><i class="fas fa-palette"></i> AparüƒÂªncia</h2>
+                <h2><i class="fas fa-palette"></i> Aparência</h2>
                 <button class="btn-close" onclick="closeModal('appearanceModal')">
                     <i class="fas fa-times"></i>
                 </button>
@@ -742,13 +742,13 @@
                         <label for="theme3" style="background: #8e44ad;" title="Roxo Profundo"></label>
                         
                         <input type="radio" name="themeColor" value="#a29bfe" id="theme4">
-                        <label for="theme4" style="background: #a29bfe;" title="LilüƒÂ¡s Suave"></label>
+                        <label for="theme4" style="background: #a29bfe;" title="Lilás Suave"></label>
                         
                         <input type="radio" name="themeColor" value="#b388ff" id="theme5">
                         <label for="theme5" style="background: #b388ff;" title="Lavanda"></label>
                         
                         <input type="radio" name="themeColor" value="#7c4dff" id="theme6">
-                        <label for="theme6" style="background: #7c4dff;" title="Violeta ElüƒÂ©trico"></label>
+                        <label for="theme6" style="background: #7c4dff;" title="Violeta Elétrico"></label>
                         
                         <input type="radio" name="themeColor" value="#d63384" id="theme7">
                         <label for="theme7" style="background: #d63384;" title="Magenta"></label>
@@ -768,7 +768,7 @@
     <!-- Toast Notification -->
     <div class="toast" id="toast">
         <i class="fas fa-check-circle"></i>
-        <span id="toastMessage">OperaüƒÂ§üƒÂ£o realizada com sucesso!</span>
+        <span id="toastMessage">Operação realizada com sucesso!</span>
     </div>
 
     <script src="app.js"></script>

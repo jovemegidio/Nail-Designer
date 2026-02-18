@@ -70,7 +70,7 @@ function addSampleData() {
         { id: 2, name: 'Manutenção de Gel', price: 80, duration: 60, category: 'gel', description: 'Manutenção do alongamento em gel' },
         { id: 3, name: 'Alongamento Acrigel', price: 180, duration: 150, category: 'acrigel', description: 'Alongamento com acrigel' },
         { id: 4, name: 'Fibra de Vidro', price: 200, duration: 180, category: 'fibra', description: 'Alongamento com fibra de vidro' },
-        { id: 5, name: 'Nail Art', price: 50, duration: 30, category: 'nail-art', description: 'Decoração artü­stica nas unhas' },
+        { id: 5, name: 'Nail Art', price: 50, duration: 30, category: 'nail-art', description: 'Decoração artística nas unhas' },
         { id: 6, name: 'Manicure Simples', price: 35, duration: 45, category: 'manicure', description: 'Manicure tradicional' },
         { id: 7, name: 'Esmaltação em Gel', price: 60, duration: 60, category: 'gel', description: 'Esmaltação com gel' }
     ];
@@ -92,7 +92,7 @@ function addSampleData() {
 
     // Sample Notes
     data.notes = [
-        { id: 1, title: 'Tendências 2024', content: 'Cores em alta: Nude rosü©, Marsala, Verde esmeralda\n\nTü©cnicas populares:\n- French invertida\n- Degradê\n- Efeito marmorizado', color: '#f0f0ff', clientId: null, images: [], createdAt: new Date().toISOString() },
+        { id: 1, title: 'Tendências 2024', content: 'Cores em alta: Nude rosé, Marsala, Verde esmeralda\n\nTécnicas populares:\n- French invertida\n- Degradê\n- Efeito marmorizado', color: '#f0f0ff', clientId: null, images: [], createdAt: new Date().toISOString() },
         { id: 2, title: 'Lista de Compras', content: '- Gel construtor rosa\n- Esmalte em gel cor 45\n- Primer\n- Top coat matte\n- Lixa 100/180', color: '#f5f5f5', clientId: null, images: [], createdAt: new Date().toISOString() }
     ];
 
@@ -100,7 +100,7 @@ function addSampleData() {
     data.gallery = [
         { id: 1, url: 'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=400', category: 'gel', clientId: 1, description: 'Alongamento em gel nude', createdAt: new Date().toISOString() },
         { id: 2, url: 'https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=400', category: 'nail-art', clientId: 2, description: 'Nail art floral', createdAt: new Date().toISOString() },
-        { id: 3, url: 'https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=400', category: 'manicure', clientId: null, description: 'Esmaltação clü¡ssica', createdAt: new Date().toISOString() }
+        { id: 3, url: 'https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=400', category: 'manicure', clientId: null, description: 'Esmaltação clássica', createdAt: new Date().toISOString() }
     ];
 
     saveData();
@@ -274,7 +274,7 @@ function saveAppointment(e) {
     showToast('Agendamento criado com sucesso!');
     updateAllViews();
     
-    // Mostrar opção de adicionar ao calendü¡rio
+    // Mostrar opção de adicionar ao calendário
     showCalendarOptions(appointment);
 }
 
@@ -447,7 +447,7 @@ function savePhoto(e) {
     );
     
     closeModal('photoModal');
-    showToast('Foto adicionada ü  galeria!');
+    showToast('Foto adicionada à galeria!');
     renderGallery();
 }
 
@@ -524,7 +524,7 @@ function renderUpcomingAppointments() {
         .slice(0, 5);
     
     if (upcoming.length === 0) {
-        list.innerHTML = '<p class="empty-message">Nenhum agendamento prü³ximo</p>';
+        list.innerHTML = '<p class="empty-message">Nenhum agendamento próximo</p>';
         return;
     }
     
@@ -543,7 +543,7 @@ function renderUpcomingAppointments() {
                     <p>${service ? service.name : 'Serviço não encontrado'}</p>
                 </div>
                 <div class="appointment-actions">
-                    <button class="btn-calendar-small" onclick="addExistingToCalendar(${apt.id})" title="Adicionar ao Calendü¡rio">
+                    <button class="btn-calendar-small" onclick="addExistingToCalendar(${apt.id})" title="Adicionar ao Calendário">
                         <i class="fas fa-calendar-plus"></i>
                     </button>
                     <button class="btn-complete" onclick="completeAppointment(${apt.id})" title="Concluir">
@@ -684,7 +684,7 @@ function showDayAppointments(dateStr) {
                     ${apt.notes ? `<p><small>${apt.notes}</small></p>` : ''}
                 </div>
                 <div class="appointment-actions">
-                    <button class="btn-calendar-small" onclick="addExistingToCalendar(${apt.id})" title="Adicionar ao Calendü¡rio">
+                    <button class="btn-calendar-small" onclick="addExistingToCalendar(${apt.id})" title="Adicionar ao Calendário">
                         <i class="fas fa-calendar-plus"></i>
                     </button>
                     ${apt.status !== 'completed' ? `
@@ -724,7 +724,7 @@ function completeAppointment(id) {
         }
         
         saveData();
-        showToast('Atendimento concluü­do!');
+        showToast('Atendimento concluído!');
         updateAllViews();
     }
 }
@@ -789,14 +789,14 @@ function editClient(id) {
     
     editingClientId = id;
     
-    // Preencher o formulü¡rio com os dados do cliente
+    // Preencher o formulário com os dados do cliente
     document.getElementById('clientName').value = client.name;
     document.getElementById('clientPhone').value = client.phone;
     document.getElementById('clientEmail').value = client.email || '';
     document.getElementById('clientBirthday').value = client.birthday || '';
     document.getElementById('clientNotes').value = client.notes || '';
     
-    // Atualizar tü­tulo do modal
+    // Atualizar título do modal
     const modalTitle = document.querySelector('#clientModal .modal-header h2');
     modalTitle.innerHTML = '<i class="fas fa-user-edit"></i> Editar Cliente';
     
@@ -807,7 +807,7 @@ function deleteClient(id) {
     const client = data.clients.find(c => c.id === id);
     if (!client) return;
     
-    if (confirm(`Deseja realmente excluir a cliente "${client.name}"?\n\nIsso tambü©m excluirü¡ todos os agendamentos, notas e fotos relacionados a ela.`)) {
+    if (confirm(`Deseja realmente excluir a cliente "${client.name}"?\n\nIsso também excluirá todos os agendamentos, notas e fotos relacionados a ela.`)) {
         // Remover cliente
         data.clients = data.clients.filter(c => c.id !== id);
         
@@ -822,8 +822,8 @@ function deleteClient(id) {
         
         saveData();
         
-        addNotification('client', `Cliente excluü­da: ${client.name}`, { clientId: id });
-        showToast('Cliente excluü­da com sucesso!');
+        addNotification('client', `Cliente excluída: ${client.name}`, { clientId: id });
+        showToast('Cliente excluída com sucesso!');
         renderClients();
         updateAllViews();
     }
@@ -833,7 +833,7 @@ function openNewClientModal() {
     editingClientId = null;
     document.getElementById('clientForm').reset();
     
-    // Restaurar tü­tulo do modal
+    // Restaurar título do modal
     const modalTitle = document.querySelector('#clientModal .modal-header h2');
     modalTitle.innerHTML = '<i class="fas fa-user-plus"></i> Nova Cliente';
     
@@ -850,8 +850,8 @@ function showClientDetail(id) {
     document.getElementById('clientDetailInfo').innerHTML = `
         <p><strong>Telefone:</strong> ${client.phone}</p>
         <p><strong>E-mail:</strong> ${client.email || 'Não informado'}</p>
-        <p><strong>Aniversü¡rio:</strong> ${client.birthday ? formatDateBR(client.birthday) : 'Não informado'}</p>
-        <p><strong>Observaçüµes:</strong> ${client.notes || 'Nenhuma'}</p>
+        <p><strong>Aniversário:</strong> ${client.birthday ? formatDateBR(client.birthday) : 'Não informado'}</p>
+        <p><strong>Observações:</strong> ${client.notes || 'Nenhuma'}</p>
     `;
     
     // Client History
@@ -870,7 +870,7 @@ function showClientDetail(id) {
                     </div>
                     <div class="appointment-info">
                         <h4>${service ? service.name : 'Serviço'}</h4>
-                        <p>${apt.status === 'completed' ? 'âœ“ Concluü­do' : 'Agendado'}</p>
+                        <p>${apt.status === 'completed' ? 'âœ“ Concluído' : 'Agendado'}</p>
                     </div>
                 </div>
             `;
@@ -949,12 +949,12 @@ function deleteService(id) {
     if (confirm('Tem certeza que deseja excluir este serviço?')) {
         data.services = data.services.filter(s => s.id !== id);
         saveData();
-        showToast('Serviço excluü­do');
+        showToast('Serviço excluído');
         renderServices();
     }
 }
 
-// Variü¡vel para controlar edição de serviço
+// Variável para controlar edição de serviço
 let editingServiceId = null;
 
 function editService(id) {
@@ -969,7 +969,7 @@ function editService(id) {
     document.getElementById('serviceCategory').value = service.category;
     document.getElementById('serviceDescription').value = service.description || '';
     
-    // Mudar tü­tulo do modal
+    // Mudar título do modal
     document.querySelector('#serviceModal .modal-header h2').innerHTML = '<i class="fas fa-edit"></i> Editar Serviço';
     
     openModal('serviceModal');
@@ -1080,7 +1080,7 @@ function deleteNote(id) {
     if (confirm('Tem certeza que deseja excluir esta nota?')) {
         data.notes = data.notes.filter(n => n.id !== id);
         saveData();
-        showToast('Nota excluü­da');
+        showToast('Nota excluída');
         renderNotes();
         renderRecentNotes();
     }
@@ -1204,7 +1204,7 @@ function showCalendarOptions(appointment) {
     
     if (!client || !service) return;
     
-    // Criar modal de opçüµes de calendü¡rio
+    // Criar modal de opções de calendário
     const existingModal = document.getElementById('calendarOptionsModal');
     if (existingModal) existingModal.remove();
     
@@ -1214,13 +1214,13 @@ function showCalendarOptions(appointment) {
     modal.innerHTML = `
         <div class="modal-content" style="max-width: 400px;">
             <div class="modal-header">
-                <h2><i class="fas fa-calendar-plus"></i> Adicionar ao Calendü¡rio</h2>
+                <h2><i class="fas fa-calendar-plus"></i> Adicionar ao Calendário</h2>
                 <button class="btn-close" onclick="closeModal('calendarOptionsModal')">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             <div style="padding: 25px;">
-                <p style="margin-bottom: 20px; color: var(--text-secondary);">Deseja adicionar este agendamento ao seu calendü¡rio?</p>
+                <p style="margin-bottom: 20px; color: var(--text-secondary);">Deseja adicionar este agendamento ao seu calendário?</p>
                 <div class="calendar-options">
                     <button class="btn-calendar google" onclick="addToGoogleCalendar(${appointment.id})">
                         <i class="fab fa-google"></i>
@@ -1255,7 +1255,7 @@ function addToGoogleCalendar(appointmentId) {
     
     if (!client || !service) return;
     
-    // Criar data de inü­cio e fim
+    // Criar data de início e fim
     const startDateTime = new Date(`${appointment.date}T${appointment.time}:00`);
     const endDateTime = new Date(startDateTime.getTime() + (service.duration * 60000));
     
@@ -1265,7 +1265,7 @@ function addToGoogleCalendar(appointmentId) {
     };
     
     const title = encodeURIComponent(`ðŸ’… ${client.name} - ${service.name}`);
-    const details = encodeURIComponent(`Cliente: ${client.name}\nTelefone: ${client.phone}\nServiço: ${service.name}\nValor: ${formatCurrency(service.price)}\n\nObservaçüµes: ${appointment.notes || 'Nenhuma'}`);
+    const details = encodeURIComponent(`Cliente: ${client.name}\nTelefone: ${client.phone}\nServiço: ${service.name}\nValor: ${formatCurrency(service.price)}\n\nObservações: ${appointment.notes || 'Nenhuma'}`);
     const dates = `${formatGoogleDate(startDateTime)}/${formatGoogleDate(endDateTime)}`;
     
     const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${dates}&details=${details}`;
@@ -1284,7 +1284,7 @@ function downloadICS(appointmentId) {
     
     if (!client || !service) return;
     
-    // Criar data de inü­cio e fim
+    // Criar data de início e fim
     const startDateTime = new Date(`${appointment.date}T${appointment.time}:00`);
     const endDateTime = new Date(startDateTime.getTime() + (service.duration * 60000));
     
@@ -1307,7 +1307,7 @@ DTSTAMP:${now}
 DTSTART:${formatICSDate(startDateTime)}
 DTEND:${formatICSDate(endDateTime)}
 SUMMARY:ðŸ’… ${client.name} - ${service.name}
-DESCRIPTION:Cliente: ${client.name}\nTelefone: ${client.phone}\nServiço: ${service.name}\nValor: ${formatCurrency(service.price)}\nObservaçüµes: ${appointment.notes || 'Nenhuma'}
+DESCRIPTION:Cliente: ${client.name}\nTelefone: ${client.phone}\nServiço: ${service.name}\nValor: ${formatCurrency(service.price)}\nObservações: ${appointment.notes || 'Nenhuma'}
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:Lembrete: Atendimento em 1 hora
@@ -1332,10 +1332,10 @@ END:VCALENDAR`;
     URL.revokeObjectURL(link.href);
     
     closeModal('calendarOptionsModal');
-    showToast('Arquivo de calendü¡rio baixado!');
+    showToast('Arquivo de calendário baixado!');
 }
 
-// Função para adicionar agendamento existente ao calendü¡rio
+// Função para adicionar agendamento existente ao calendário
 function addExistingToCalendar(appointmentId) {
     const appointment = data.appointments.find(a => a.id === appointmentId);
     if (appointment) {
@@ -1361,7 +1361,7 @@ document.addEventListener('click', (e) => {
 function openProfileSettingsModal() {
     document.querySelector('.user-profile-container').classList.remove('active');
     
-    // Preencher formulü¡rio com dados atuais
+    // Preencher formulário com dados atuais
     document.getElementById('profileName').value = settings.profile.name;
     document.getElementById('profileEmail').value = settings.profile.email;
     document.getElementById('profilePhone').value = settings.profile.phone;
@@ -1429,7 +1429,7 @@ function saveStudioSettings(e) {
     saveSettings();
     applySettings();
     closeModal('studioSettingsModal');
-    showToast('Configuraçüµes do estüºdio salvas!');
+    showToast('Configurações do estúdio salvas!');
 }
 
 function saveAppearance(e) {
@@ -1455,7 +1455,7 @@ function applySettings() {
     document.getElementById('dropdownProfileName').textContent = settings.profile.name;
     document.getElementById('dropdownProfileEmail').textContent = settings.profile.email;
     
-    // Aplicar nome do estüºdio no logo
+    // Aplicar nome do estúdio no logo
     const logoText = document.querySelector('.logo span');
     if (logoText) logoText.textContent = settings.studio.name;
     
@@ -1484,7 +1484,7 @@ function applyThemeColor(color) {
     const darkerColor = darkenColor(color, 15);
     root.style.setProperty('--primary-dark', darkerColor);
     
-    // Cor secundü¡ria (variação)
+    // Cor secundária (variação)
     const secondaryColor = lightenColor(color, 15);
     root.style.setProperty('--secondary-color', secondaryColor);
     
@@ -1494,13 +1494,13 @@ function applyThemeColor(color) {
         sidebar.style.background = `linear-gradient(180deg, ${darkenColor(color, 40)} 0%, ${darkenColor(color, 30)} 100%)`;
     }
     
-    // Atualizar ü­cone do logo
+    // Atualizar ícone do logo
     const logoIcon = document.querySelector('.logo i');
     if (logoIcon) {
         logoIcon.style.color = lighterColor;
     }
     
-    // Atualizar ü­cones de estatü­sticas
+    // Atualizar ícones de estatísticas
     const statIcons = document.querySelectorAll('.stat-icon');
     statIcons.forEach((icon, index) => {
         const colors = [color, lighterColor, darkerColor, secondaryColor];
@@ -1650,9 +1650,9 @@ function getTimeAgo(date) {
     const diff = Math.floor((now - date) / 1000);
     
     if (diff < 60) return 'Agora mesmo';
-    if (diff < 3600) return `${Math.floor(diff / 60)} min atrü¡s`;
-    if (diff < 86400) return `${Math.floor(diff / 3600)}h atrü¡s`;
-    if (diff < 604800) return `${Math.floor(diff / 86400)} dias atrü¡s`;
+    if (diff < 3600) return `${Math.floor(diff / 60)} min atrás`;
+    if (diff < 86400) return `${Math.floor(diff / 3600)}h atrás`;
+    if (diff < 604800) return `${Math.floor(diff / 86400)} dias atrás`;
     
     return date.toLocaleDateString('pt-BR');
 }
@@ -1679,7 +1679,7 @@ function clearAllNotifications() {
     data.notifications = [];
     saveData();
     updateNotifications();
-    showToast('Notificaçüµes limpas!');
+    showToast('Notificações limpas!');
 }
 
 // Close notifications dropdown when clicking outside
@@ -1697,13 +1697,13 @@ document.addEventListener('click', function(e) {
 // ===== INSPIRATIONS & TRENDS =====
 // Nail inspiration images - Curadoria das melhores nail arts
 const inspirationSources = [
-    // Nail Arts Clü¡ssicas
+    // Nail Arts Clássicas
     { url: 'https://i.pinimg.com/736x/8a/c4/7e/8ac47e8a5c5c3c4d8f3c3f3e5b5a5b5c.jpg', title: 'French Elegante' },
     { url: 'https://i.pinimg.com/736x/1a/2b/3c/1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d.jpg', title: 'Nude Sofisticado' },
     
     // Aura Nails - Tendência 2025
     { url: 'https://i.pinimg.com/564x/a8/5d/c3/a85dc3f8e9b2c4d5e6f7a8b9c0d1e2f3.jpg', title: 'Aura Nails Rosa' },
-    { url: 'https://i.pinimg.com/564x/b7/4e/d2/b74ed2a3b4c5d6e7f8a9b0c1d2e3f4a5.jpg', title: 'Aura Lilü¡s' },
+    { url: 'https://i.pinimg.com/564x/b7/4e/d2/b74ed2a3b4c5d6e7f8a9b0c1d2e3f4a5.jpg', title: 'Aura Lilás' },
     
     // Chrome & Glazed
     { url: 'https://i.pinimg.com/564x/c6/3d/e1/c63de1b2c3d4e5f6a7b8c9d0e1f2a3b4.jpg', title: 'Chrome Prateado' },
@@ -1715,7 +1715,7 @@ const inspirationSources = [
     
     // Minimalistas
     { url: 'https://i.pinimg.com/564x/a2/9f/c7/a29fc7d8e9f0a1b2c3d4e5f6a7b8c9d0.jpg', title: 'Minimalista Chic' },
-    { url: 'https://i.pinimg.com/564x/b1/8e/d6/b18ed6c7d8e9f0a1b2c3d4e5f6a7b8c9.jpg', title: 'Linhas Geomü©tricas' },
+    { url: 'https://i.pinimg.com/564x/b1/8e/d6/b18ed6c7d8e9f0a1b2c3d4e5f6a7b8c9.jpg', title: 'Linhas Geométricas' },
     
     // 3D & Texturas
     { url: 'https://i.pinimg.com/564x/c0/7d/e5/c07de5b6c7d8e9f0a1b2c3d4e5f6a7b8.jpg', title: '3D Flowers' },
@@ -1751,11 +1751,11 @@ function getTrendsByMonth() {
     const month = new Date().getMonth();
     const year = new Date().getFullYear();
     
-    // Base trends sempre disponü­veis
+    // Base trends sempre disponíveis
     const baseTrends = [
         {
             name: 'Aura Nails',
-            description: 'Efeito de cores que se mesclam criando uma "aura" etü©rea nas unhas',
+            description: 'Efeito de cores que se mesclam criando uma "aura" etérea nas unhas',
             icon: 'fa-palette',
             gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
             hot: true
@@ -1769,7 +1769,7 @@ function getTrendsByMonth() {
         },
         {
             name: 'Chrome Effect',
-            description: 'Efeito espelhado metü¡lico em tons de prata, dourado ou rosü©',
+            description: 'Efeito espelhado metálico em tons de prata, dourado ou rosé',
             icon: 'fa-circle',
             gradient: 'linear-gradient(135deg, #bdc3c7 0%, #2c3e50 100%)',
             hot: false
@@ -1786,33 +1786,33 @@ function getTrendsByMonth() {
         ],
         // Outono (Mar-Mai)
         autumn: [
-            { name: 'Burgundy Elegance', description: 'Tons de vinho e bordü´ sofisticados', icon: 'fa-wine-glass', gradient: 'linear-gradient(135deg, #8e2de2 0%, #4a00e0 100%)' },
+            { name: 'Burgundy Elegance', description: 'Tons de vinho e bordô sofisticados', icon: 'fa-wine-glass', gradient: 'linear-gradient(135deg, #8e2de2 0%, #4a00e0 100%)' },
             { name: 'Earth Tones', description: 'Cores terrosas e naturais inspiradas no outono', icon: 'fa-leaf', gradient: 'linear-gradient(135deg, #c79081 0%, #dfa579 100%)' },
             { name: 'Velvet Finish', description: 'Acabamento aveludado e texturizado', icon: 'fa-feather', gradient: 'linear-gradient(135deg, #834d9b 0%, #d04ed6 100%)' }
         ],
         // Inverno (Jun-Ago)
         winter: [
-            { name: 'Ice Chrome', description: 'Cromado gelado em tons de prata, azul e lilü¡s metü¡lico', icon: 'fa-snowflake', gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' },
-            { name: 'Dark Romance', description: 'Tons escuros e dramü¡ticos com toques de vermelho', icon: 'fa-heart', gradient: 'linear-gradient(135deg, #200122 0%, #6f0000 100%)' },
+            { name: 'Ice Chrome', description: 'Cromado gelado em tons de prata, azul e lilás metálico', icon: 'fa-snowflake', gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' },
+            { name: 'Dark Romance', description: 'Tons escuros e dramáticos com toques de vermelho', icon: 'fa-heart', gradient: 'linear-gradient(135deg, #200122 0%, #6f0000 100%)' },
             { name: 'Cozy Neutrals', description: 'Nudes quentes e aconchegantes para os dias frios', icon: 'fa-mug-hot', gradient: 'linear-gradient(135deg, #c9b18c 0%, #d4a76a 100%)' }
         ],
         // Primavera (Set-Nov)
         spring: [
             { name: 'Butter Nails', description: 'Tons cremosos e suaves de amarelo manteiga e nude rosado', icon: 'fa-spa', gradient: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)' },
-            { name: 'Soft Girl Aesthetic', description: 'Decoraçüµes delicadas com laços, coraçüµes e flores em tons pastel', icon: 'fa-heart', gradient: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)' },
+            { name: 'Soft Girl Aesthetic', description: 'Decorações delicadas com laços, corações e flores em tons pastel', icon: 'fa-heart', gradient: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)' },
             { name: 'Cherry Blossom', description: 'Nail art inspirada nas flores de cerejeira', icon: 'fa-flower', gradient: 'linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%)' }
         ]
     };
     
-    // Tendências especü­ficas do ano
+    // Tendências específicas do ano
     const yearTrends = {
         2025: [
-            { name: '3D Nail Art', description: 'Decoraçüµes tridimensionais com pedras e apliques', icon: 'fa-cube', gradient: 'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)', hot: true },
-            { name: 'Jelly Nails', description: 'Unhas translüºcidas com efeito gelatinoso em cores vibrantes', icon: 'fa-water', gradient: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)', hot: true },
+            { name: '3D Nail Art', description: 'Decorações tridimensionais com pedras e apliques', icon: 'fa-cube', gradient: 'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)', hot: true },
+            { name: 'Jelly Nails', description: 'Unhas translúcidas com efeito gelatinoso em cores vibrantes', icon: 'fa-water', gradient: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)', hot: true },
             { name: 'Micro French', description: 'French minimalista com linha super fina', icon: 'fa-minus', gradient: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)', hot: true }
         ],
         2026: [
-            { name: 'Holo Dreams', description: 'Efeito hologrü¡fico iridescente que muda de cor', icon: 'fa-rainbow', gradient: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)', hot: true },
+            { name: 'Holo Dreams', description: 'Efeito holográfico iridescente que muda de cor', icon: 'fa-rainbow', gradient: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)', hot: true },
             { name: 'Textured Nails', description: 'Unhas com texturas em alto relevo', icon: 'fa-layer-group', gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', hot: true }
         ]
     };
@@ -1848,7 +1848,7 @@ function getTrendColors() {
     // Cores das tendências 2025/2026
     const trendColors2025 = [
         { color: '#E8D5E0', name: 'Aura Pink' },
-        { color: '#C9B8D9', name: 'Aura Lilü¡s' },
+        { color: '#C9B8D9', name: 'Aura Lilás' },
         { color: '#F5E6D3', name: 'Glazed Nude' },
         { color: '#FFF0F5', name: 'Glazed Pearl' },
         { color: '#D4D4D4', name: 'Chrome Silver' },
@@ -1948,7 +1948,7 @@ function loadInspirations() {
         const shuffledBackup = [...backupNailImages].sort(() => Math.random() - 0.5);
         const shuffledTitles = [...inspirationSources].sort(() => Math.random() - 0.5);
         
-        // Combinar URLs confiü¡veis com tü­tulos variados
+        // Combinar URLs confiáveis com títulos variados
         const selected = shuffledBackup.slice(0, 8).map((url, i) => ({
             url: url,
             title: shuffledTitles[i]?.title || 'Nail Art Inspiração'
@@ -1992,7 +1992,7 @@ function handleImageError(img, index) {
 
 function refreshInspirations() {
     loadInspirations();
-    showToast('Inspiraçüµes atualizadas!');
+    showToast('Inspirações atualizadas!');
 }
 
 function saveToGallery(url, title) {
@@ -2021,7 +2021,7 @@ function shareInspiration(url) {
         });
     } else {
         navigator.clipboard.writeText(url);
-        showToast('Link copiado para a ü¡rea de transferência!');
+        showToast('Link copiado para a área de transferência!');
     }
 }
 
