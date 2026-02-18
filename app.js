@@ -15,11 +15,11 @@ let settings = {
         name: 'Betina',
         email: 'meuemail@email.com',
         phone: '',
-        photo: 'betina-profile.jpg'
+        photo: null
     },
     studio: {
         name: 'Betina Nails Studio',
-        slogan: 'Betina Balduti - Nail Designer | Suas unhas em boas mÃ£os',
+        slogan: 'Betina Balduti - Nail Designer | Suas unhas em boas mãos',
         address: '',
         openTime: '09:00',
         closeTime: '19:00',
@@ -67,12 +67,12 @@ function addSampleData() {
     // Sample Services
     data.services = [
         { id: 1, name: 'Alongamento em Gel', price: 150, duration: 120, category: 'gel', description: 'Alongamento completo com gel' },
-        { id: 2, name: 'ManutenÃ§Ã£o de Gel', price: 80, duration: 60, category: 'gel', description: 'ManutenÃ§Ã£o do alongamento em gel' },
+        { id: 2, name: 'Manutenção de Gel', price: 80, duration: 60, category: 'gel', description: 'Manutenção do alongamento em gel' },
         { id: 3, name: 'Alongamento Acrigel', price: 180, duration: 150, category: 'acrigel', description: 'Alongamento com acrigel' },
         { id: 4, name: 'Fibra de Vidro', price: 200, duration: 180, category: 'fibra', description: 'Alongamento com fibra de vidro' },
-        { id: 5, name: 'Nail Art', price: 50, duration: 30, category: 'nail-art', description: 'DecoraÃ§Ã£o artÃ­stica nas unhas' },
+        { id: 5, name: 'Nail Art', price: 50, duration: 30, category: 'nail-art', description: 'Decoração artü­stica nas unhas' },
         { id: 6, name: 'Manicure Simples', price: 35, duration: 45, category: 'manicure', description: 'Manicure tradicional' },
-        { id: 7, name: 'EsmaltaÃ§Ã£o em Gel', price: 60, duration: 60, category: 'gel', description: 'EsmaltaÃ§Ã£o com gel' }
+        { id: 7, name: 'Esmaltação em Gel', price: 60, duration: 60, category: 'gel', description: 'Esmaltação com gel' }
     ];
 
     // Sample Clients
@@ -86,13 +86,13 @@ function addSampleData() {
     const today = new Date();
     data.appointments = [
         { id: 1, clientId: 1, serviceId: 1, date: formatDate(today), time: '09:00', notes: '', status: 'scheduled' },
-        { id: 2, clientId: 2, serviceId: 2, date: formatDate(today), time: '11:00', notes: 'Trazer referÃªncia', status: 'scheduled' },
+        { id: 2, clientId: 2, serviceId: 2, date: formatDate(today), time: '11:00', notes: 'Trazer referência', status: 'scheduled' },
         { id: 3, clientId: 3, serviceId: 5, date: formatDate(addDays(today, 1)), time: '14:00', notes: '', status: 'scheduled' }
     ];
 
     // Sample Notes
     data.notes = [
-        { id: 1, title: 'TendÃªncias 2024', content: 'Cores em alta: Nude rosÃ©, Marsala, Verde esmeralda\n\nTÃ©cnicas populares:\n- French invertida\n- DegradÃª\n- Efeito marmorizado', color: '#f0f0ff', clientId: null, images: [], createdAt: new Date().toISOString() },
+        { id: 1, title: 'Tendências 2024', content: 'Cores em alta: Nude rosü©, Marsala, Verde esmeralda\n\nTü©cnicas populares:\n- French invertida\n- Degradê\n- Efeito marmorizado', color: '#f0f0ff', clientId: null, images: [], createdAt: new Date().toISOString() },
         { id: 2, title: 'Lista de Compras', content: '- Gel construtor rosa\n- Esmalte em gel cor 45\n- Primer\n- Top coat matte\n- Lixa 100/180', color: '#f5f5f5', clientId: null, images: [], createdAt: new Date().toISOString() }
     ];
 
@@ -100,7 +100,7 @@ function addSampleData() {
     data.gallery = [
         { id: 1, url: 'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=400', category: 'gel', clientId: 1, description: 'Alongamento em gel nude', createdAt: new Date().toISOString() },
         { id: 2, url: 'https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=400', category: 'nail-art', clientId: 2, description: 'Nail art floral', createdAt: new Date().toISOString() },
-        { id: 3, url: 'https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=400', category: 'manicure', clientId: null, description: 'EsmaltaÃ§Ã£o clÃ¡ssica', createdAt: new Date().toISOString() }
+        { id: 3, url: 'https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=400', category: 'manicure', clientId: null, description: 'Esmaltação clü¡ssica', createdAt: new Date().toISOString() }
     ];
 
     saveData();
@@ -144,8 +144,12 @@ const pages = document.querySelectorAll('.page');
 
 navItems.forEach(item => {
     item.addEventListener('click', (e) => {
-        e.preventDefault();
         const pageId = item.dataset.page;
+
+        // Skip external links (e.g. Instagram) that have no data-page
+        if (!pageId) return;
+
+        e.preventDefault();
         
         navItems.forEach(nav => nav.classList.remove('active'));
         item.classList.add('active');
@@ -262,7 +266,7 @@ function saveAppointment(e) {
     // Add notification
     addNotification(
         'appointment',
-        `Novo agendamento: ${client ? client.name : 'Cliente'} - ${service ? service.name : 'ServiÃ§o'}`,
+        `Novo agendamento: ${client ? client.name : 'Cliente'} - ${service ? service.name : 'Serviço'}`,
         { appointmentId: appointment.id, date: appointment.date, time: appointment.time }
     );
     
@@ -270,7 +274,7 @@ function saveAppointment(e) {
     showToast('Agendamento criado com sucesso!');
     updateAllViews();
     
-    // Mostrar opÃ§Ã£o de adicionar ao calendÃ¡rio
+    // Mostrar opção de adicionar ao calendü¡rio
     showCalendarOptions(appointment);
 }
 
@@ -341,7 +345,7 @@ function saveService(e) {
     };
     
     if (editingServiceId) {
-        // Editando serviÃ§o existente
+        // Editando serviço existente
         const index = data.services.findIndex(s => s.id === editingServiceId);
         if (index !== -1) {
             data.services[index] = { ...data.services[index], ...serviceData };
@@ -349,25 +353,25 @@ function saveService(e) {
             // Add notification for edit
             addNotification(
                 'service',
-                `ServiÃ§o atualizado: ${serviceData.name}`,
+                `Serviço atualizado: ${serviceData.name}`,
                 { serviceId: editingServiceId }
             );
         }
-        showToast('ServiÃ§o atualizado com sucesso!');
+        showToast('Serviço atualizado com sucesso!');
         editingServiceId = null;
     } else {
-        // Novo serviÃ§o
+        // Novo serviço
         serviceData.id = generateId(data.services);
         data.services.push(serviceData);
         
         // Add notification for new service
         addNotification(
             'service',
-            `Novo serviÃ§o cadastrado: ${serviceData.name}`,
+            `Novo serviço cadastrado: ${serviceData.name}`,
             { serviceId: serviceData.id }
         );
         
-        showToast('ServiÃ§o cadastrado com sucesso!');
+        showToast('Serviço cadastrado com sucesso!');
     }
     
     saveData();
@@ -443,7 +447,7 @@ function savePhoto(e) {
     );
     
     closeModal('photoModal');
-    showToast('Foto adicionada Ã  galeria!');
+    showToast('Foto adicionada ü  galeria!');
     renderGallery();
 }
 
@@ -520,7 +524,7 @@ function renderUpcomingAppointments() {
         .slice(0, 5);
     
     if (upcoming.length === 0) {
-        list.innerHTML = '<p class="empty-message">Nenhum agendamento prÃ³ximo</p>';
+        list.innerHTML = '<p class="empty-message">Nenhum agendamento prü³ximo</p>';
         return;
     }
     
@@ -535,11 +539,11 @@ function renderUpcomingAppointments() {
                     <strong>${apt.time}</strong>
                 </div>
                 <div class="appointment-info">
-                    <h4>${client ? client.name : 'Cliente nÃ£o encontrado'}</h4>
-                    <p>${service ? service.name : 'ServiÃ§o nÃ£o encontrado'}</p>
+                    <h4>${client ? client.name : 'Cliente não encontrado'}</h4>
+                    <p>${service ? service.name : 'Serviço não encontrado'}</p>
                 </div>
                 <div class="appointment-actions">
-                    <button class="btn-calendar-small" onclick="addExistingToCalendar(${apt.id})" title="Adicionar ao CalendÃ¡rio">
+                    <button class="btn-calendar-small" onclick="addExistingToCalendar(${apt.id})" title="Adicionar ao Calendü¡rio">
                         <i class="fas fa-calendar-plus"></i>
                     </button>
                     <button class="btn-complete" onclick="completeAppointment(${apt.id})" title="Concluir">
@@ -675,12 +679,12 @@ function showDayAppointments(dateStr) {
                     <strong>${apt.time}</strong>
                 </div>
                 <div class="appointment-info">
-                    <h4>${client ? client.name : 'Cliente nÃ£o encontrado'}</h4>
-                    <p>${service ? service.name : 'ServiÃ§o nÃ£o encontrado'}</p>
+                    <h4>${client ? client.name : 'Cliente não encontrado'}</h4>
+                    <p>${service ? service.name : 'Serviço não encontrado'}</p>
                     ${apt.notes ? `<p><small>${apt.notes}</small></p>` : ''}
                 </div>
                 <div class="appointment-actions">
-                    <button class="btn-calendar-small" onclick="addExistingToCalendar(${apt.id})" title="Adicionar ao CalendÃ¡rio">
+                    <button class="btn-calendar-small" onclick="addExistingToCalendar(${apt.id})" title="Adicionar ao Calendü¡rio">
                         <i class="fas fa-calendar-plus"></i>
                     </button>
                     ${apt.status !== 'completed' ? `
@@ -720,7 +724,7 @@ function completeAppointment(id) {
         }
         
         saveData();
-        showToast('Atendimento concluÃ­do!');
+        showToast('Atendimento concluü­do!');
         updateAllViews();
     }
 }
@@ -785,14 +789,14 @@ function editClient(id) {
     
     editingClientId = id;
     
-    // Preencher o formulÃ¡rio com os dados do cliente
+    // Preencher o formulü¡rio com os dados do cliente
     document.getElementById('clientName').value = client.name;
     document.getElementById('clientPhone').value = client.phone;
     document.getElementById('clientEmail').value = client.email || '';
     document.getElementById('clientBirthday').value = client.birthday || '';
     document.getElementById('clientNotes').value = client.notes || '';
     
-    // Atualizar tÃ­tulo do modal
+    // Atualizar tü­tulo do modal
     const modalTitle = document.querySelector('#clientModal .modal-header h2');
     modalTitle.innerHTML = '<i class="fas fa-user-edit"></i> Editar Cliente';
     
@@ -803,7 +807,7 @@ function deleteClient(id) {
     const client = data.clients.find(c => c.id === id);
     if (!client) return;
     
-    if (confirm(`Deseja realmente excluir a cliente "${client.name}"?\n\nIsso tambÃ©m excluirÃ¡ todos os agendamentos, notas e fotos relacionados a ela.`)) {
+    if (confirm(`Deseja realmente excluir a cliente "${client.name}"?\n\nIsso tambü©m excluirü¡ todos os agendamentos, notas e fotos relacionados a ela.`)) {
         // Remover cliente
         data.clients = data.clients.filter(c => c.id !== id);
         
@@ -818,8 +822,8 @@ function deleteClient(id) {
         
         saveData();
         
-        addNotification('client', `Cliente excluÃ­da: ${client.name}`, { clientId: id });
-        showToast('Cliente excluÃ­da com sucesso!');
+        addNotification('client', `Cliente excluü­da: ${client.name}`, { clientId: id });
+        showToast('Cliente excluü­da com sucesso!');
         renderClients();
         updateAllViews();
     }
@@ -829,7 +833,7 @@ function openNewClientModal() {
     editingClientId = null;
     document.getElementById('clientForm').reset();
     
-    // Restaurar tÃ­tulo do modal
+    // Restaurar tü­tulo do modal
     const modalTitle = document.querySelector('#clientModal .modal-header h2');
     modalTitle.innerHTML = '<i class="fas fa-user-plus"></i> Nova Cliente';
     
@@ -845,9 +849,9 @@ function showClientDetail(id) {
     // Client Info
     document.getElementById('clientDetailInfo').innerHTML = `
         <p><strong>Telefone:</strong> ${client.phone}</p>
-        <p><strong>E-mail:</strong> ${client.email || 'NÃ£o informado'}</p>
-        <p><strong>AniversÃ¡rio:</strong> ${client.birthday ? formatDateBR(client.birthday) : 'NÃ£o informado'}</p>
-        <p><strong>ObservaÃ§Ãµes:</strong> ${client.notes || 'Nenhuma'}</p>
+        <p><strong>E-mail:</strong> ${client.email || 'Não informado'}</p>
+        <p><strong>Aniversü¡rio:</strong> ${client.birthday ? formatDateBR(client.birthday) : 'Não informado'}</p>
+        <p><strong>Observaçüµes:</strong> ${client.notes || 'Nenhuma'}</p>
     `;
     
     // Client History
@@ -865,8 +869,8 @@ function showClientDetail(id) {
                         <strong>${apt.time}</strong>
                     </div>
                     <div class="appointment-info">
-                        <h4>${service ? service.name : 'ServiÃ§o'}</h4>
-                        <p>${apt.status === 'completed' ? 'âœ“ ConcluÃ­do' : 'Agendado'}</p>
+                        <h4>${service ? service.name : 'Serviço'}</h4>
+                        <p>${apt.status === 'completed' ? 'âœ“ Concluü­do' : 'Agendado'}</p>
                     </div>
                 </div>
             `;
@@ -902,7 +906,7 @@ function renderServices() {
     const list = document.getElementById('servicesList');
     
     if (data.services.length === 0) {
-        list.innerHTML = '<p class="empty-message">Nenhum serviÃ§o cadastrado</p>';
+        list.innerHTML = '<p class="empty-message">Nenhum serviço cadastrado</p>';
         return;
     }
     
@@ -910,7 +914,7 @@ function renderServices() {
         <div class="service-card">
             <div class="service-info">
                 <h3>${service.name}</h3>
-                <p>${service.description || 'Sem descriÃ§Ã£o'}</p>
+                <p>${service.description || 'Sem descrição'}</p>
                 <div class="service-meta">
                     <span><i class="fas fa-clock"></i> ${service.duration} min</span>
                     <span><i class="fas fa-tag"></i> ${getCategoryName(service.category)}</span>
@@ -942,15 +946,15 @@ function getCategoryName(category) {
 }
 
 function deleteService(id) {
-    if (confirm('Tem certeza que deseja excluir este serviÃ§o?')) {
+    if (confirm('Tem certeza que deseja excluir este serviço?')) {
         data.services = data.services.filter(s => s.id !== id);
         saveData();
-        showToast('ServiÃ§o excluÃ­do');
+        showToast('Serviço excluü­do');
         renderServices();
     }
 }
 
-// VariÃ¡vel para controlar ediÃ§Ã£o de serviÃ§o
+// Variü¡vel para controlar edição de serviço
 let editingServiceId = null;
 
 function editService(id) {
@@ -965,8 +969,8 @@ function editService(id) {
     document.getElementById('serviceCategory').value = service.category;
     document.getElementById('serviceDescription').value = service.description || '';
     
-    // Mudar tÃ­tulo do modal
-    document.querySelector('#serviceModal .modal-header h2').innerHTML = '<i class="fas fa-edit"></i> Editar ServiÃ§o';
+    // Mudar tü­tulo do modal
+    document.querySelector('#serviceModal .modal-header h2').innerHTML = '<i class="fas fa-edit"></i> Editar Serviço';
     
     openModal('serviceModal');
 }
@@ -974,7 +978,7 @@ function editService(id) {
 function openNewServiceModal() {
     editingServiceId = null;
     document.getElementById('serviceForm').reset();
-    document.querySelector('#serviceModal .modal-header h2').innerHTML = '<i class="fas fa-spa"></i> Novo ServiÃ§o';
+    document.querySelector('#serviceModal .modal-header h2').innerHTML = '<i class="fas fa-spa"></i> Novo Serviço';
     openModal('serviceModal');
 }
 
@@ -997,9 +1001,9 @@ function renderGallery(filter = 'all') {
         
         return `
             <div class="gallery-item">
-                <img src="${photo.url}" alt="${photo.description}" onerror="this.src='https://via.placeholder.com/400x300?text=Imagem'">
+                <img src="${photo.url}" alt="${photo.description}" onerror="this.src='https://placehold.co/400x300/e2e8f0/64748b?text=Imagem'">
                 <div class="gallery-item-info">
-                    <h4>${photo.description || 'Sem descriÃ§Ã£o'}</h4>
+                    <h4>${photo.description || 'Sem descrição'}</h4>
                     <p>${client ? client.name : 'Trabalho pessoal'}</p>
                     <span class="category-tag">${getCategoryName(photo.category)}</span>
                 </div>
@@ -1076,7 +1080,7 @@ function deleteNote(id) {
     if (confirm('Tem certeza que deseja excluir esta nota?')) {
         data.notes = data.notes.filter(n => n.id !== id);
         saveData();
-        showToast('Nota excluÃ­da');
+        showToast('Nota excluü­da');
         renderNotes();
         renderRecentNotes();
     }
@@ -1108,7 +1112,7 @@ function renderTransactions() {
     const transactions = [...data.transactions].sort((a, b) => new Date(b.date) - new Date(a.date));
     
     if (transactions.length === 0) {
-        list.innerHTML = '<p class="empty-message">Nenhuma transaÃ§Ã£o registrada</p>';
+        list.innerHTML = '<p class="empty-message">Nenhuma transação registrada</p>';
         return;
     }
     
@@ -1200,7 +1204,7 @@ function showCalendarOptions(appointment) {
     
     if (!client || !service) return;
     
-    // Criar modal de opÃ§Ãµes de calendÃ¡rio
+    // Criar modal de opçüµes de calendü¡rio
     const existingModal = document.getElementById('calendarOptionsModal');
     if (existingModal) existingModal.remove();
     
@@ -1210,13 +1214,13 @@ function showCalendarOptions(appointment) {
     modal.innerHTML = `
         <div class="modal-content" style="max-width: 400px;">
             <div class="modal-header">
-                <h2><i class="fas fa-calendar-plus"></i> Adicionar ao CalendÃ¡rio</h2>
+                <h2><i class="fas fa-calendar-plus"></i> Adicionar ao Calendü¡rio</h2>
                 <button class="btn-close" onclick="closeModal('calendarOptionsModal')">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             <div style="padding: 25px;">
-                <p style="margin-bottom: 20px; color: var(--text-secondary);">Deseja adicionar este agendamento ao seu calendÃ¡rio?</p>
+                <p style="margin-bottom: 20px; color: var(--text-secondary);">Deseja adicionar este agendamento ao seu calendü¡rio?</p>
                 <div class="calendar-options">
                     <button class="btn-calendar google" onclick="addToGoogleCalendar(${appointment.id})">
                         <i class="fab fa-google"></i>
@@ -1251,7 +1255,7 @@ function addToGoogleCalendar(appointmentId) {
     
     if (!client || !service) return;
     
-    // Criar data de inÃ­cio e fim
+    // Criar data de inü­cio e fim
     const startDateTime = new Date(`${appointment.date}T${appointment.time}:00`);
     const endDateTime = new Date(startDateTime.getTime() + (service.duration * 60000));
     
@@ -1261,7 +1265,7 @@ function addToGoogleCalendar(appointmentId) {
     };
     
     const title = encodeURIComponent(`ðŸ’… ${client.name} - ${service.name}`);
-    const details = encodeURIComponent(`Cliente: ${client.name}\nTelefone: ${client.phone}\nServiÃ§o: ${service.name}\nValor: ${formatCurrency(service.price)}\n\nObservaÃ§Ãµes: ${appointment.notes || 'Nenhuma'}`);
+    const details = encodeURIComponent(`Cliente: ${client.name}\nTelefone: ${client.phone}\nServiço: ${service.name}\nValor: ${formatCurrency(service.price)}\n\nObservaçüµes: ${appointment.notes || 'Nenhuma'}`);
     const dates = `${formatGoogleDate(startDateTime)}/${formatGoogleDate(endDateTime)}`;
     
     const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${dates}&details=${details}`;
@@ -1280,7 +1284,7 @@ function downloadICS(appointmentId) {
     
     if (!client || !service) return;
     
-    // Criar data de inÃ­cio e fim
+    // Criar data de inü­cio e fim
     const startDateTime = new Date(`${appointment.date}T${appointment.time}:00`);
     const endDateTime = new Date(startDateTime.getTime() + (service.duration * 60000));
     
@@ -1303,7 +1307,7 @@ DTSTAMP:${now}
 DTSTART:${formatICSDate(startDateTime)}
 DTEND:${formatICSDate(endDateTime)}
 SUMMARY:ðŸ’… ${client.name} - ${service.name}
-DESCRIPTION:Cliente: ${client.name}\nTelefone: ${client.phone}\nServiÃ§o: ${service.name}\nValor: ${formatCurrency(service.price)}\nObservaÃ§Ãµes: ${appointment.notes || 'Nenhuma'}
+DESCRIPTION:Cliente: ${client.name}\nTelefone: ${client.phone}\nServiço: ${service.name}\nValor: ${formatCurrency(service.price)}\nObservaçüµes: ${appointment.notes || 'Nenhuma'}
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:Lembrete: Atendimento em 1 hora
@@ -1328,10 +1332,10 @@ END:VCALENDAR`;
     URL.revokeObjectURL(link.href);
     
     closeModal('calendarOptionsModal');
-    showToast('Arquivo de calendÃ¡rio baixado!');
+    showToast('Arquivo de calendü¡rio baixado!');
 }
 
-// FunÃ§Ã£o para adicionar agendamento existente ao calendÃ¡rio
+// Função para adicionar agendamento existente ao calendü¡rio
 function addExistingToCalendar(appointmentId) {
     const appointment = data.appointments.find(a => a.id === appointmentId);
     if (appointment) {
@@ -1357,7 +1361,7 @@ document.addEventListener('click', (e) => {
 function openProfileSettingsModal() {
     document.querySelector('.user-profile-container').classList.remove('active');
     
-    // Preencher formulÃ¡rio com dados atuais
+    // Preencher formulü¡rio com dados atuais
     document.getElementById('profileName').value = settings.profile.name;
     document.getElementById('profileEmail').value = settings.profile.email;
     document.getElementById('profilePhone').value = settings.profile.phone;
@@ -1425,7 +1429,7 @@ function saveStudioSettings(e) {
     saveSettings();
     applySettings();
     closeModal('studioSettingsModal');
-    showToast('ConfiguraÃ§Ãµes do estÃºdio salvas!');
+    showToast('Configuraçüµes do estüºdio salvas!');
 }
 
 function saveAppearance(e) {
@@ -1451,7 +1455,7 @@ function applySettings() {
     document.getElementById('dropdownProfileName').textContent = settings.profile.name;
     document.getElementById('dropdownProfileEmail').textContent = settings.profile.email;
     
-    // Aplicar nome do estÃºdio no logo
+    // Aplicar nome do estüºdio no logo
     const logoText = document.querySelector('.logo span');
     if (logoText) logoText.textContent = settings.studio.name;
     
@@ -1480,7 +1484,7 @@ function applyThemeColor(color) {
     const darkerColor = darkenColor(color, 15);
     root.style.setProperty('--primary-dark', darkerColor);
     
-    // Cor secundÃ¡ria (variaÃ§Ã£o)
+    // Cor secundü¡ria (variação)
     const secondaryColor = lightenColor(color, 15);
     root.style.setProperty('--secondary-color', secondaryColor);
     
@@ -1490,13 +1494,13 @@ function applyThemeColor(color) {
         sidebar.style.background = `linear-gradient(180deg, ${darkenColor(color, 40)} 0%, ${darkenColor(color, 30)} 100%)`;
     }
     
-    // Atualizar Ã­cone do logo
+    // Atualizar ü­cone do logo
     const logoIcon = document.querySelector('.logo i');
     if (logoIcon) {
         logoIcon.style.color = lighterColor;
     }
     
-    // Atualizar Ã­cones de estatÃ­sticas
+    // Atualizar ü­cones de estatü­sticas
     const statIcons = document.querySelectorAll('.stat-icon');
     statIcons.forEach((icon, index) => {
         const colors = [color, lighterColor, darkerColor, secondaryColor];
@@ -1608,7 +1612,7 @@ function updateNotifications() {
     badge.setAttribute('data-count', unreadCount);
     
     if (data.notifications.length === 0) {
-        list.innerHTML = '<p class="empty-notifications">Nenhuma notificaÃ§Ã£o</p>';
+        list.innerHTML = '<p class="empty-notifications">Nenhuma notificação</p>';
         return;
     }
     
@@ -1646,9 +1650,9 @@ function getTimeAgo(date) {
     const diff = Math.floor((now - date) / 1000);
     
     if (diff < 60) return 'Agora mesmo';
-    if (diff < 3600) return `${Math.floor(diff / 60)} min atrÃ¡s`;
-    if (diff < 86400) return `${Math.floor(diff / 3600)}h atrÃ¡s`;
-    if (diff < 604800) return `${Math.floor(diff / 86400)} dias atrÃ¡s`;
+    if (diff < 3600) return `${Math.floor(diff / 60)} min atrü¡s`;
+    if (diff < 86400) return `${Math.floor(diff / 3600)}h atrü¡s`;
+    if (diff < 604800) return `${Math.floor(diff / 86400)} dias atrü¡s`;
     
     return date.toLocaleDateString('pt-BR');
 }
@@ -1675,7 +1679,7 @@ function clearAllNotifications() {
     data.notifications = [];
     saveData();
     updateNotifications();
-    showToast('NotificaÃ§Ãµes limpas!');
+    showToast('Notificaçüµes limpas!');
 }
 
 // Close notifications dropdown when clicking outside
@@ -1693,13 +1697,13 @@ document.addEventListener('click', function(e) {
 // ===== INSPIRATIONS & TRENDS =====
 // Nail inspiration images - Curadoria das melhores nail arts
 const inspirationSources = [
-    // Nail Arts ClÃ¡ssicas
+    // Nail Arts Clü¡ssicas
     { url: 'https://i.pinimg.com/736x/8a/c4/7e/8ac47e8a5c5c3c4d8f3c3f3e5b5a5b5c.jpg', title: 'French Elegante' },
     { url: 'https://i.pinimg.com/736x/1a/2b/3c/1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d.jpg', title: 'Nude Sofisticado' },
     
-    // Aura Nails - TendÃªncia 2025
+    // Aura Nails - Tendência 2025
     { url: 'https://i.pinimg.com/564x/a8/5d/c3/a85dc3f8e9b2c4d5e6f7a8b9c0d1e2f3.jpg', title: 'Aura Nails Rosa' },
-    { url: 'https://i.pinimg.com/564x/b7/4e/d2/b74ed2a3b4c5d6e7f8a9b0c1d2e3f4a5.jpg', title: 'Aura LilÃ¡s' },
+    { url: 'https://i.pinimg.com/564x/b7/4e/d2/b74ed2a3b4c5d6e7f8a9b0c1d2e3f4a5.jpg', title: 'Aura Lilü¡s' },
     
     // Chrome & Glazed
     { url: 'https://i.pinimg.com/564x/c6/3d/e1/c63de1b2c3d4e5f6a7b8c9d0e1f2a3b4.jpg', title: 'Chrome Prateado' },
@@ -1711,7 +1715,7 @@ const inspirationSources = [
     
     // Minimalistas
     { url: 'https://i.pinimg.com/564x/a2/9f/c7/a29fc7d8e9f0a1b2c3d4e5f6a7b8c9d0.jpg', title: 'Minimalista Chic' },
-    { url: 'https://i.pinimg.com/564x/b1/8e/d6/b18ed6c7d8e9f0a1b2c3d4e5f6a7b8c9.jpg', title: 'Linhas GeomÃ©tricas' },
+    { url: 'https://i.pinimg.com/564x/b1/8e/d6/b18ed6c7d8e9f0a1b2c3d4e5f6a7b8c9.jpg', title: 'Linhas Geomü©tricas' },
     
     // 3D & Texturas
     { url: 'https://i.pinimg.com/564x/c0/7d/e5/c07de5b6c7d8e9f0a1b2c3d4e5f6a7b8.jpg', title: '3D Flowers' },
@@ -1747,11 +1751,11 @@ function getTrendsByMonth() {
     const month = new Date().getMonth();
     const year = new Date().getFullYear();
     
-    // Base trends sempre disponÃ­veis
+    // Base trends sempre disponü­veis
     const baseTrends = [
         {
             name: 'Aura Nails',
-            description: 'Efeito de cores que se mesclam criando uma "aura" etÃ©rea nas unhas',
+            description: 'Efeito de cores que se mesclam criando uma "aura" etü©rea nas unhas',
             icon: 'fa-palette',
             gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
             hot: true
@@ -1765,62 +1769,62 @@ function getTrendsByMonth() {
         },
         {
             name: 'Chrome Effect',
-            description: 'Efeito espelhado metÃ¡lico em tons de prata, dourado ou rosÃ©',
+            description: 'Efeito espelhado metü¡lico em tons de prata, dourado ou rosü©',
             icon: 'fa-circle',
             gradient: 'linear-gradient(135deg, #bdc3c7 0%, #2c3e50 100%)',
             hot: false
         }
     ];
     
-    // TendÃªncias sazonais
+    // Tendências sazonais
     const seasonalTrends = {
-        // VerÃ£o (Dez-Fev no Brasil)
+        // Verão (Dez-Fev no Brasil)
         summer: [
-            { name: 'Neon Summer', description: 'Cores vibrantes e neon para o verÃ£o brasileiro', icon: 'fa-sun', gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' },
+            { name: 'Neon Summer', description: 'Cores vibrantes e neon para o verão brasileiro', icon: 'fa-sun', gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' },
             { name: 'Beach Vibes', description: 'Tons de azul oceano e areia com glitter', icon: 'fa-umbrella-beach', gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' },
             { name: 'Tropical Fruits', description: 'Nail art com frutas tropicais e cores quentes', icon: 'fa-lemon', gradient: 'linear-gradient(135deg, #f7971e 0%, #ffd200 100%)' }
         ],
         // Outono (Mar-Mai)
         autumn: [
-            { name: 'Burgundy Elegance', description: 'Tons de vinho e bordÃ´ sofisticados', icon: 'fa-wine-glass', gradient: 'linear-gradient(135deg, #8e2de2 0%, #4a00e0 100%)' },
+            { name: 'Burgundy Elegance', description: 'Tons de vinho e bordü´ sofisticados', icon: 'fa-wine-glass', gradient: 'linear-gradient(135deg, #8e2de2 0%, #4a00e0 100%)' },
             { name: 'Earth Tones', description: 'Cores terrosas e naturais inspiradas no outono', icon: 'fa-leaf', gradient: 'linear-gradient(135deg, #c79081 0%, #dfa579 100%)' },
             { name: 'Velvet Finish', description: 'Acabamento aveludado e texturizado', icon: 'fa-feather', gradient: 'linear-gradient(135deg, #834d9b 0%, #d04ed6 100%)' }
         ],
         // Inverno (Jun-Ago)
         winter: [
-            { name: 'Ice Chrome', description: 'Cromado gelado em tons de prata, azul e lilÃ¡s metÃ¡lico', icon: 'fa-snowflake', gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' },
-            { name: 'Dark Romance', description: 'Tons escuros e dramÃ¡ticos com toques de vermelho', icon: 'fa-heart', gradient: 'linear-gradient(135deg, #200122 0%, #6f0000 100%)' },
+            { name: 'Ice Chrome', description: 'Cromado gelado em tons de prata, azul e lilü¡s metü¡lico', icon: 'fa-snowflake', gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' },
+            { name: 'Dark Romance', description: 'Tons escuros e dramü¡ticos com toques de vermelho', icon: 'fa-heart', gradient: 'linear-gradient(135deg, #200122 0%, #6f0000 100%)' },
             { name: 'Cozy Neutrals', description: 'Nudes quentes e aconchegantes para os dias frios', icon: 'fa-mug-hot', gradient: 'linear-gradient(135deg, #c9b18c 0%, #d4a76a 100%)' }
         ],
         // Primavera (Set-Nov)
         spring: [
             { name: 'Butter Nails', description: 'Tons cremosos e suaves de amarelo manteiga e nude rosado', icon: 'fa-spa', gradient: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)' },
-            { name: 'Soft Girl Aesthetic', description: 'DecoraÃ§Ãµes delicadas com laÃ§os, coraÃ§Ãµes e flores em tons pastel', icon: 'fa-heart', gradient: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)' },
+            { name: 'Soft Girl Aesthetic', description: 'Decoraçüµes delicadas com laços, coraçüµes e flores em tons pastel', icon: 'fa-heart', gradient: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)' },
             { name: 'Cherry Blossom', description: 'Nail art inspirada nas flores de cerejeira', icon: 'fa-flower', gradient: 'linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%)' }
         ]
     };
     
-    // TendÃªncias especÃ­ficas do ano
+    // Tendências especü­ficas do ano
     const yearTrends = {
         2025: [
-            { name: '3D Nail Art', description: 'DecoraÃ§Ãµes tridimensionais com pedras e apliques', icon: 'fa-cube', gradient: 'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)', hot: true },
-            { name: 'Jelly Nails', description: 'Unhas translÃºcidas com efeito gelatinoso em cores vibrantes', icon: 'fa-water', gradient: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)', hot: true },
+            { name: '3D Nail Art', description: 'Decoraçüµes tridimensionais com pedras e apliques', icon: 'fa-cube', gradient: 'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)', hot: true },
+            { name: 'Jelly Nails', description: 'Unhas translüºcidas com efeito gelatinoso em cores vibrantes', icon: 'fa-water', gradient: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)', hot: true },
             { name: 'Micro French', description: 'French minimalista com linha super fina', icon: 'fa-minus', gradient: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)', hot: true }
         ],
         2026: [
-            { name: 'Holo Dreams', description: 'Efeito hologrÃ¡fico iridescente que muda de cor', icon: 'fa-rainbow', gradient: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)', hot: true },
+            { name: 'Holo Dreams', description: 'Efeito hologrü¡fico iridescente que muda de cor', icon: 'fa-rainbow', gradient: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)', hot: true },
             { name: 'Textured Nails', description: 'Unhas com texturas em alto relevo', icon: 'fa-layer-group', gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', hot: true }
         ]
     };
     
-    // Determinar estaÃ§Ã£o atual (Brasil)
+    // Determinar estação atual (Brasil)
     let season;
     if (month >= 11 || month <= 1) season = 'summer';
     else if (month >= 2 && month <= 4) season = 'autumn';
     else if (month >= 5 && month <= 7) season = 'winter';
     else season = 'spring';
     
-    // Combinar tendÃªncias
+    // Combinar tendências
     let allTrends = [...baseTrends];
     
     if (seasonalTrends[season]) {
@@ -1841,19 +1845,19 @@ function getTrendColors() {
     const month = new Date().getMonth();
     const year = new Date().getFullYear();
     
-    // Cores das tendÃªncias 2025/2026
+    // Cores das tendências 2025/2026
     const trendColors2025 = [
         { color: '#E8D5E0', name: 'Aura Pink' },
-        { color: '#C9B8D9', name: 'Aura LilÃ¡s' },
+        { color: '#C9B8D9', name: 'Aura Lilü¡s' },
         { color: '#F5E6D3', name: 'Glazed Nude' },
         { color: '#FFF0F5', name: 'Glazed Pearl' },
         { color: '#D4D4D4', name: 'Chrome Silver' },
         { color: '#B8A9C9', name: 'Jelly Grape' }
     ];
     
-    // Cores sazonais baseadas nas tendÃªncias
+    // Cores sazonais baseadas nas tendências
     const seasonalColors = {
-        // VerÃ£o (Dez-Fev) - Cores vibrantes e neon
+        // Verão (Dez-Fev) - Cores vibrantes e neon
         summer: [
             { color: '#FF6B9D', name: 'Neon Pink' },
             { color: '#00D4AA', name: 'Tropical Mint' },
@@ -1891,14 +1895,14 @@ function getTrendColors() {
         ]
     };
     
-    // Determinar estaÃ§Ã£o atual (Brasil)
+    // Determinar estação atual (Brasil)
     let season;
     if (month >= 11 || month <= 1) season = 'summer';
     else if (month >= 2 && month <= 4) season = 'autumn';
     else if (month >= 5 && month <= 7) season = 'winter';
     else season = 'spring';
     
-    // Combinar cores das tendÃªncias com cores sazonais
+    // Combinar cores das tendências com cores sazonais
     const allColors = [...trendColors2025, ...(seasonalColors[season] || [])];
     
     // Retornar 8 cores mais relevantes
@@ -1940,14 +1944,14 @@ function loadInspirations() {
     
     // Simulate loading then show images
     setTimeout(() => {
-        // Usar imagens de backup do Pexels que sÃ£o garantidas
+        // Usar imagens de backup do Pexels que são garantidas
         const shuffledBackup = [...backupNailImages].sort(() => Math.random() - 0.5);
         const shuffledTitles = [...inspirationSources].sort(() => Math.random() - 0.5);
         
-        // Combinar URLs confiÃ¡veis com tÃ­tulos variados
+        // Combinar URLs confiü¡veis com tü­tulos variados
         const selected = shuffledBackup.slice(0, 8).map((url, i) => ({
             url: url,
-            title: shuffledTitles[i]?.title || 'Nail Art InspiraÃ§Ã£o'
+            title: shuffledTitles[i]?.title || 'Nail Art Inspiração'
         }));
         
         grid.innerHTML = selected.map((item, index) => `
@@ -1988,7 +1992,7 @@ function handleImageError(img, index) {
 
 function refreshInspirations() {
     loadInspirations();
-    showToast('InspiraÃ§Ãµes atualizadas!');
+    showToast('Inspiraçüµes atualizadas!');
 }
 
 function saveToGallery(url, title) {
@@ -1997,27 +2001,27 @@ function saveToGallery(url, title) {
         url: url,
         category: 'nail-art',
         clientId: null,
-        description: title + ' (InspiraÃ§Ã£o)',
+        description: title + ' (Inspiração)',
         createdAt: new Date().toISOString()
     };
     
     data.gallery.push(photo);
     saveData();
     
-    addNotification('photo', `InspiraÃ§Ã£o salva na galeria: ${title}`, { photoId: photo.id });
-    showToast('InspiraÃ§Ã£o salva na galeria!');
+    addNotification('photo', `Inspiração salva na galeria: ${title}`, { photoId: photo.id });
+    showToast('Inspiração salva na galeria!');
 }
 
 function shareInspiration(url) {
     if (navigator.share) {
         navigator.share({
-            title: 'InspiraÃ§Ã£o de Unhas',
-            text: 'Olha essa inspiraÃ§Ã£o de unhas!',
+            title: 'Inspiração de Unhas',
+            text: 'Olha essa inspiração de unhas!',
             url: url
         });
     } else {
         navigator.clipboard.writeText(url);
-        showToast('Link copiado para a Ã¡rea de transferÃªncia!');
+        showToast('Link copiado para a ü¡rea de transferência!');
     }
 }
 
@@ -2091,7 +2095,7 @@ function loadInstagramFeed() {
             <div class="instagram-post" style="animation-delay: ${i * 0.08}s">
                 <div class="instagram-post-img">
                     <img src="${post.url}" alt="${post.caption}" loading="lazy"
-                        onerror="this.src='https://via.placeholder.com/400x400?text=Instagram'">
+                        onerror="this.src='https://placehold.co/400x400/e2e8f0/64748b?text=Instagram'">
                     <div class="instagram-post-overlay">
                         <span><i class="fas fa-heart"></i> ${post.likes}</span>
                         <button onclick="event.stopPropagation(); saveInstagramToGallery(${i})" class="btn-save-insta" title="Salvar na Galeria">
