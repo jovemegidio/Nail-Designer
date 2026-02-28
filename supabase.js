@@ -92,13 +92,39 @@ async function saveToSupabase(appData, appSettings) {
 }
 
 // ===== SYNC COM DEBOUNCE (evita muitas chamadas) =====
+let lastSyncData = null;
+let lastSyncSettings = null;
+
 function queueSupabaseSync(appData, appSettings) {
+    lastSyncData = appData;
+    lastSyncSettings = appSettings;
+    
     if (syncQueue) clearTimeout(syncQueue);
     
     syncQueue = setTimeout(() => {
         saveToSupabase(appData, appSettings);
+        syncQueue = null;
     }, 2000); // Aguarda 2 segundos após a última alteração
 }
+
+// Garantir que dados pendentes são salvos antes de fechar a página
+window.addEventListener('beforeunload', () => {
+    if (syncQueue && lastSyncData) {
+        clearTimeout(syncQueue);
+        // Usar sendBeacon para envio confiável durante fechamento
+        const payload = JSON.stringify({
+            id: 'main',
+            app_data: lastSyncData,
+            app_settings: lastSyncSettings,
+            updated_at: new Date().toISOString()
+        });
+        const url = `${SUPABASE_URL}/rest/v1/user_data?id=eq.main`;
+        navigator.sendBeacon && navigator.sendBeacon(
+            url,
+            new Blob([payload], { type: 'application/json' })
+        );
+    }
+});
 
 // ===== UPLOAD DE PRIMEIRA VEZ =====
 // Envia dados do localStorage para o Supabase (migração inicial)

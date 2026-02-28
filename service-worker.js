@@ -1,5 +1,5 @@
 // ===== SERVICE WORKER - BETINA'S Beauty PWA =====
-const CACHE_NAME = 'betinas-beauty-v1';
+const CACHE_NAME = 'betinas-beauty-v2';
 const OFFLINE_URL = './index.html';
 
 // Arquivos essenciais para funcionar offline
@@ -103,26 +103,21 @@ self.addEventListener('fetch', (event) => {
         return;
     }
     
-    // Para arquivos locais (CSS, JS, imagens): Stale While Revalidate
+    // Para arquivos locais (CSS, JS, imagens): Network First com fallback para Cache
     if (url.origin === self.location.origin) {
         event.respondWith(
-            caches.match(request).then((cachedResponse) => {
-                const fetchPromise = fetch(request).then((networkResponse) => {
-                    // Atualizar cache em background
-                    if (networkResponse.ok) {
-                        const responseClone = networkResponse.clone();
-                        caches.open(CACHE_NAME).then((cache) => {
-                            cache.put(request, responseClone);
-                        });
-                    }
-                    return networkResponse;
-                }).catch(() => {
-                    // Rede falhou, retornar null (usará cachedResponse)
-                    return null;
-                });
-                
-                // Retornar cache imediatamente, atualizar em background
-                return cachedResponse || fetchPromise;
+            fetch(request).then((networkResponse) => {
+                // Atualizar cache com a versão mais recente
+                if (networkResponse.ok) {
+                    const responseClone = networkResponse.clone();
+                    caches.open(CACHE_NAME).then((cache) => {
+                        cache.put(request, responseClone);
+                    });
+                }
+                return networkResponse;
+            }).catch(() => {
+                // Rede falhou, usar cache como fallback
+                return caches.match(request);
             })
         );
         return;
