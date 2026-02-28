@@ -1,0 +1,47 @@
+{
+    "name": "BETINA'S Beauty - Meu Planner",
+    "short_name": "Betina's Beauty",
+    "description": "Planner completo para nail designer - Gerencie clientes, agendamentos, galeria e finanças",
+    "start_url": "./index.html",
+    "scope": "./",
+    "display": "standalone",
+    "orientation": "any",
+    "background_color": "#0f0f1a",
+    "theme_color": "#6c5ce7",
+    "lang": "pt-BR",
+    "categories": ["business", "productivity", "lifestyle"],
+    "icons": [
+        {
+            "src": "Favicon.ico",
+            "sizes": "64x64",
+            "type": "image/x-icon"
+        },
+        {
+            "src": "Logo - Betina (Icone).png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "Logo - Betina (Icone).png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "screenshots": [],
+    "shortcuts": [
+        {
+            "name": "Novo Agendamento",
+            "short_name": "Agendar",
+            "url": "./index.html?action=new-appointment",
+            "icons": [{ "src": "Favicon.ico", "sizes": "64x64" }]
+        },
+        {
+            "name": "Meus Clientes",
+            "short_name": "Clientes",
+            "url": "./index.html?page=clientes",
+            "icons": [{ "src": "Favicon.ico", "sizes": "64x64" }]
+        }
+    ]
+}

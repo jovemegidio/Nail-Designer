@@ -3,7 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nails - Betina Balduti</title>
+    <title>BETINA'S Beauty - Meu Planner</title>
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#6c5ce7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Betina's Beauty">
+    <link rel="apple-touch-icon" href="Logo - Betina (Icone).png">
+    <meta name="description" content="Planner completo para nail designer - Gerencie clientes, agendamentos, galeria e finanças">
+    
     <link rel="icon" type="image/x-icon" href="Favicon.ico">
     <link rel="shortcut icon" type="image/x-icon" href="Favicon.ico">
     <link rel="stylesheet" href="styles.css">
@@ -771,6 +781,24 @@
         <span id="toastMessage">Operação realizada com sucesso!</span>
     </div>
 
+    <!-- PWA Install Banner -->
+    <div class="pwa-install-banner" id="pwaInstallBanner">
+        <div class="pwa-install-content">
+            <img src="Logo - Betina (Icone).png" alt="Betina's Beauty" class="pwa-install-icon">
+            <div class="pwa-install-text">
+                <strong>Instalar Betina's Beauty</strong>
+                <p>Adicione à tela inicial para acesso rápido</p>
+            </div>
+        </div>
+        <div class="pwa-install-actions">
+            <button class="pwa-btn-later" onclick="dismissInstallBanner()">Depois</button>
+            <button class="pwa-btn-install" onclick="installPWA()">Instalar</button>
+        </div>
+    </div>
+
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

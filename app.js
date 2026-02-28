@@ -1,4 +1,4 @@
-// ===== DATA STORAGE =====
+﻿// ===== DATA STORAGE =====
 let data = {
     clients: [],
     appointments: [],
@@ -59,12 +59,12 @@ const PORTFOLIO_PHOTOS = [
     { id: 'p18', url: 'https://images.pexels.com/photos/3997381/pexels-photo-3997381.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'gel', description: 'Gel Babyboomer 🤍', source: 'instagram', fixed: true }
 ];
 
-// Initialize data from localStorage
+// Initialize data from localStorage + Supabase
 function initData() {
+    // 1. Carregar do localStorage primeiro (resposta imediata)
     const savedData = localStorage.getItem('nailStudioData');
     if (savedData) {
         data = JSON.parse(savedData);
-        // Ensure notifications array exists for older data
         if (!data.notifications) {
             data.notifications = [];
         }
@@ -73,7 +73,6 @@ function initData() {
         saveData();
     }
     
-    // Load settings
     const savedSettings = localStorage.getItem('nailStudioSettings');
     if (savedSettings) {
         settings = JSON.parse(savedSettings);
@@ -82,14 +81,73 @@ function initData() {
     updateAllViews();
     applySettings();
     updateNotifications();
+    
+    // 2. Tentar carregar do Supabase (em background)
+    initSupabaseSync();
+}
+
+// Inicializar sincronização com Supabase
+async function initSupabaseSync() {
+    try {
+        const connected = await checkSupabaseConnection();
+        
+        if (connected) {
+            const cloudData = await loadFromSupabase();
+            
+            if (cloudData && cloudData.data && Object.keys(cloudData.data).length > 0) {
+                // Supabase tem dados - verificar qual é mais recente
+                const localUpdated = localStorage.getItem('nailStudioLastUpdate') || '0';
+                const cloudHasClients = cloudData.data.clients && cloudData.data.clients.length > 0;
+                
+                if (cloudHasClients) {
+                    data = cloudData.data;
+                    if (!data.notifications) data.notifications = [];
+                    if (!data.transactions) data.transactions = [];
+                    localStorage.setItem('nailStudioData', JSON.stringify(data));
+                    
+                    if (cloudData.settings && Object.keys(cloudData.settings).length > 0) {
+                        settings = cloudData.settings;
+                        localStorage.setItem('nailStudioSettings', JSON.stringify(settings));
+                    }
+                    
+                    updateAllViews();
+                    applySettings();
+                    updateNotifications();
+                    console.log('☁️ Dados carregados da nuvem!');
+                }
+            } else {
+                // Supabase vazio - fazer upload dos dados locais
+                const hasLocalData = data.clients.length > 0 || data.services.length > 0;
+                if (hasLocalData) {
+                    await uploadLocalDataToSupabase();
+                }
+            }
+            
+            // Ativar sync em tempo real entre dispositivos
+            enableRealtimeSync();
+        }
+    } catch (err) {
+        console.warn('⚠️ Supabase sync falhou, usando dados locais:', err.message);
+    }
 }
 
 function saveData() {
     localStorage.setItem('nailStudioData', JSON.stringify(data));
+    localStorage.setItem('nailStudioLastUpdate', Date.now().toString());
+    
+    // Sincronizar com Supabase (com debounce)
+    if (typeof queueSupabaseSync === 'function') {
+        queueSupabaseSync(data, settings);
+    }
 }
 
 function saveSettings() {
     localStorage.setItem('nailStudioSettings', JSON.stringify(settings));
+    
+    // Sincronizar settings com Supabase
+    if (typeof queueSupabaseSync === 'function') {
+        queueSupabaseSync(data, settings);
+    }
 }
 
 // ===== UTILITY FUNCTIONS =====
@@ -1209,7 +1267,7 @@ function showCalendarOptions(appointment) {
     modal.className = 'modal active';
     modal.id = 'calendarOptionsModal';
     modal.innerHTML = `
-        <div class="modal-content" style="max-width: 400px;">
+        <div class="modal-content" style="max-width: 420px;">
             <div class="modal-header">
                 <h2><i class="fas fa-calendar-plus"></i> Adicionar ao Calendário</h2>
                 <button class="btn-close" onclick="closeModal('calendarOptionsModal')">
@@ -1217,15 +1275,23 @@ function showCalendarOptions(appointment) {
                 </button>
             </div>
             <div style="padding: 25px;">
-                <p style="margin-bottom: 20px; color: var(--text-secondary);">Deseja adicionar este agendamento ao seu calendário?</p>
+                <div style="margin-bottom: 20px; padding: 16px; background: var(--background); border-radius: 12px;">
+                    <p style="font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">💅 ${client.name}</p>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary);">${service.name} • ${appointment.date ? formatDateBR(appointment.date) : ''} às ${appointment.time}</p>
+                </div>
+                <p style="margin-bottom: 16px; color: var(--text-secondary); font-size: 0.9rem;">Escolha onde adicionar:</p>
                 <div class="calendar-options">
-                    <button class="btn-calendar google" onclick="addToGoogleCalendar(${appointment.id})">
-                        <i class="fab fa-google"></i>
-                        Google Calendar
-                    </button>
                     <button class="btn-calendar apple" onclick="downloadICS(${appointment.id})">
                         <i class="fab fa-apple"></i>
                         Apple Calendar / Outlook
+                    </button>
+                    <button class="btn-calendar apple" style="background: #5856d6;" onclick="addToAppleReminders(${appointment.id})">
+                        <i class="fas fa-list-check"></i>
+                        Lembretes (Apple)
+                    </button>
+                    <button class="btn-calendar google" onclick="addToGoogleCalendar(${appointment.id})">
+                        <i class="fab fa-google"></i>
+                        Google Calendar
                     </button>
                 </div>
                 <button class="btn-secondary" style="width: 100%; margin-top: 15px;" onclick="closeModal('calendarOptionsModal')">
@@ -1295,25 +1361,46 @@ function downloadICS(appointmentId) {
     
     const icsContent = `BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//Betina Nails Studio//Agendamento//PT
+PRODID:-//Betinas Beauty//Agendamento//PT
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
+X-WR-CALNAME:Betina's Beauty
+X-WR-TIMEZONE:America/Sao_Paulo
+BEGIN:VTIMEZONE
+TZID:America/Sao_Paulo
+BEGIN:STANDARD
+DTSTART:19700101T000000
+TZOFFSETFROM:-0300
+TZOFFSETTO:-0300
+TZNAME:BRT
+END:STANDARD
+END:VTIMEZONE
 BEGIN:VEVENT
 UID:${uid}
 DTSTAMP:${now}
-DTSTART:${formatICSDate(startDateTime)}
-DTEND:${formatICSDate(endDateTime)}
-SUMMARY:ðŸ’… ${client.name} - ${service.name}
-DESCRIPTION:Cliente: ${client.name}\nTelefone: ${client.phone}\nServiço: ${service.name}\nValor: ${formatCurrency(service.price)}\nObservações: ${appointment.notes || 'Nenhuma'}
+DTSTART;TZID=America/Sao_Paulo:${formatICSDate(startDateTime)}
+DTEND;TZID=America/Sao_Paulo:${formatICSDate(endDateTime)}
+SUMMARY:💅 ${client.name} - ${service.name}
+DESCRIPTION:Cliente: ${client.name}\\nTelefone: ${client.phone}\\nServiço: ${service.name}\\nValor: ${formatCurrency(service.price)}\\nObservações: ${appointment.notes || 'Nenhuma'}
+LOCATION:${settings.studio.address || settings.studio.name || 'Estúdio'}
+CATEGORIES:Atendimento,Nail Designer
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Lembrete: Atendimento em 1 hora
+DESCRIPTION:⏰ Atendimento em 1 hora: ${client.name}
 TRIGGER:-PT1H
 END:VALARM
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Lembrete: Atendimento em 30 minutos
+DESCRIPTION:⏰ Atendimento em 30 min: ${client.name}
 TRIGGER:-PT30M
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:⏰ Atendimento em 15 min: ${client.name}
+TRIGGER:-PT15M
 END:VALARM
 END:VEVENT
 END:VCALENDAR`;
@@ -1330,6 +1417,71 @@ END:VCALENDAR`;
     
     closeModal('calendarOptionsModal');
     showToast('Arquivo de calendário baixado!');
+}
+
+// Função para adicionar ao Apple Lembretes (VTODO)
+function addToAppleReminders(appointmentId) {
+    const appointment = data.appointments.find(a => a.id === appointmentId);
+    if (!appointment) return;
+    
+    const client = data.clients.find(c => c.id === appointment.clientId);
+    const service = data.services.find(s => s.id === appointment.serviceId);
+    
+    if (!client || !service) return;
+    
+    const dueDateTime = new Date(`${appointment.date}T${appointment.time}:00`);
+    
+    const formatICSDate = (date) => {
+        return date.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '').slice(0, -1);
+    };
+    
+    const uid = `betinas-beauty-reminder-${appointmentId}-${Date.now()}@betinasbeauty`;
+    const now = formatICSDate(new Date());
+    
+    // Lembrete 1 dia antes para preparar materiais
+    const reminderPrep = new Date(dueDateTime);
+    reminderPrep.setDate(reminderPrep.getDate() - 1);
+    reminderPrep.setHours(9, 0, 0);
+    
+    const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Betinas Beauty//Lembretes//PT
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Betina's Beauty
+BEGIN:VTODO
+UID:${uid}
+DTSTAMP:${now}
+DUE;TZID=America/Sao_Paulo:${formatICSDate(dueDateTime)}
+SUMMARY:💅 Atendimento: ${client.name} - ${service.name}
+DESCRIPTION:Cliente: ${client.name}\\nTelefone: ${client.phone}\\nServiço: ${service.name}\\nDuração: ${service.duration} min\\nValor: ${formatCurrency(service.price)}\\n\\nObservações: ${appointment.notes || 'Nenhuma'}
+PRIORITY:1
+STATUS:NEEDS-ACTION
+CATEGORIES:Atendimento
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:⏰ Atendimento hoje: ${client.name} às ${appointment.time}
+TRIGGER:-PT2H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:📋 Preparar materiais: ${client.name} amanhã
+TRIGGER;VALUE=DATE-TIME:${formatICSDate(reminderPrep)}
+END:VALARM
+END:VTODO
+END:VCALENDAR`;
+    
+    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `lembrete-${client.name.replace(/\s+/g, '-')}-${appointment.date}.ics`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(link.href);
+    
+    closeModal('calendarOptionsModal');
+    showToast('Lembrete baixado! Abra para adicionar ao Lembretes.');
 }
 
 // Função para adicionar agendamento existente ao calendário
@@ -2132,4 +2284,128 @@ function saveInstagramToGallery(index) {
     addNotification('photo', `Foto do Instagram salva: ${post.caption}`, { photoId: photo.id });
     showToast('Foto do Instagram salva na galeria!');
 }
+`n`n// ===== PWA - SERVICE WORKER & INSTALL =====
+let deferredPrompt = null;
 
+// Registrar Service Worker
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js')
+            .then((registration) => {
+                console.log('📱 Service Worker registrado! Scope:', registration.scope);
+                
+                // Verificar atualizações periodicamente
+                setInterval(() => {
+                    registration.update();
+                }, 60 * 60 * 1000); // A cada hora
+                
+                // Notificar quando houver atualização
+                registration.addEventListener('updatefound', () => {
+                    const newWorker = registration.installing;
+                    newWorker.addEventListener('statechange', () => {
+                        if (newWorker.state === 'activated') {
+                            showToast('🔄 App atualizado! Recarregue para ver as novidades.');
+                        }
+                    });
+                });
+            })
+            .catch((error) => {
+                console.warn('⚠️ Service Worker falhou:', error);
+            });
+    });
+}
+
+// Interceptar evento de instalação do PWA
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    
+    // Verificar se já foi dispensado recentemente
+    const dismissed = localStorage.getItem('pwaInstallDismissed');
+    const dismissedDate = dismissed ? new Date(parseInt(dismissed)) : null;
+    const daysSinceDismiss = dismissedDate ? (Date.now() - dismissedDate) / (1000 * 60 * 60 * 24) : 999;
+    
+    // Mostrar banner apenas se não foi dispensado nos últimos 3 dias
+    if (daysSinceDismiss > 3) {
+        setTimeout(() => {
+            showInstallBanner();
+        }, 5000); // Esperar 5 segundos para não ser intrusivo
+    }
+});
+
+// Quando o PWA é instalado
+window.addEventListener('appinstalled', () => {
+    deferredPrompt = null;
+    hideInstallBanner();
+    showToast('✅ App instalado com sucesso! Acesse pela tela inicial.');
+    console.log('📱 PWA instalado!');
+});
+
+function showInstallBanner() {
+    const banner = document.getElementById('pwaInstallBanner');
+    if (banner) {
+        banner.classList.add('show');
+    }
+}
+
+function hideInstallBanner() {
+    const banner = document.getElementById('pwaInstallBanner');
+    if (banner) {
+        banner.classList.remove('show');
+    }
+}
+
+function dismissInstallBanner() {
+    hideInstallBanner();
+    localStorage.setItem('pwaInstallDismissed', Date.now().toString());
+}
+
+async function installPWA() {
+    if (!deferredPrompt) {
+        showToast('Use o menu do navegador para instalar o app');
+        return;
+    }
+    
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    
+    if (outcome === 'accepted') {
+        console.log('📱 Usuário aceitou instalar o PWA');
+    } else {
+        console.log('📱 Usuário recusou instalar o PWA');
+    }
+    
+    deferredPrompt = null;
+    hideInstallBanner();
+}
+
+// Verificar se já está instalado como PWA
+function isPWA() {
+    return window.matchMedia('(display-mode: standalone)').matches 
+        || window.navigator.standalone === true;
+}
+
+// Tratar parâmetros de URL (atalhos do PWA)
+function handleURLParams() {
+    const params = new URLSearchParams(window.location.search);
+    
+    const page = params.get('page');
+    if (page) {
+        const navItem = document.querySelector(`[data-page="${page}"]`);
+        if (navItem) navItem.click();
+    }
+    
+    const action = params.get('action');
+    if (action === 'new-appointment') {
+        setTimeout(() => openNewAppointmentModal(), 500);
+    }
+}
+
+// Executar ao carregar
+window.addEventListener('load', () => {
+    handleURLParams();
+    
+    if (isPWA()) {
+        console.log('📱 Rodando como PWA instalado');
+    }
+});
