@@ -1,4 +1,4 @@
-﻿/* ===== RESET & BASE ===== */
+/* ===== RESET & BASE ===== */
 * {
     margin: 0;
     padding: 0;
@@ -1225,6 +1225,15 @@ body {
     text-align: center;
     color: var(--text-light);
     padding: 40px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 /* ===== CLIENTS GRID ===== */
@@ -3619,7 +3628,11 @@ form {
     }
     .instagram-post-caption {
         padding: 6px 8px;
-        font-size: 11px;`n`n/* ===== SUPABASE SYNC INDICATOR ===== */
+        font-size: 11px;
+    }
+}
+
+/* ===== SUPABASE SYNC INDICATOR ===== */
 .sync-indicator {
     position: fixed;
     bottom: 20px;

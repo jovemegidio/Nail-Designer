@@ -1,4 +1,4 @@
-﻿// ===== DATA STORAGE =====
+// ===== DATA STORAGE =====
 let data = {
     clients: [],
     appointments: [],
@@ -29,35 +29,6 @@ let settings = {
         themeColor: '#6c5ce7'
     }
 };
-
-// ===== PORTFOLIO FIXO - Fotos permanentes dos trabalhos reais =====
-// Essas fotos são fixas no código e NUNCA se perdem ao atualizar o navegador
-const PORTFOLIO_PHOTOS = [
-    // === GEL ===
-    { id: 'p1', url: 'https://images.pexels.com/photos/3997379/pexels-photo-3997379.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'gel', description: 'Alongamento em Gel ✨', source: 'instagram', fixed: true },
-    { id: 'p2', url: 'https://images.pexels.com/photos/3997383/pexels-photo-3997383.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'gel', description: 'French Moderna 💅', source: 'instagram', fixed: true },
-    { id: 'p3', url: 'https://images.pexels.com/photos/3997387/pexels-photo-3997387.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'gel', description: 'Degradê Nude 🎨', source: 'instagram', fixed: true },
-    { id: 'p4', url: 'https://images.pexels.com/photos/3997389/pexels-photo-3997389.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'gel', description: 'Gel Moldado 🎨', source: 'instagram', fixed: true },
-    { id: 'p5', url: 'https://images.pexels.com/photos/3997393/pexels-photo-3997393.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'gel', description: 'Esmaltação em Gel Premium ✨', source: 'instagram', fixed: true },
-    // === NAIL ART ===
-    { id: 'p6', url: 'https://images.pexels.com/photos/3997391/pexels-photo-3997391.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'nail-art', description: 'Nail Art Floral 🌸', source: 'instagram', fixed: true },
-    { id: 'p7', url: 'https://images.pexels.com/photos/1144355/pexels-photo-1144355.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'nail-art', description: 'Glitter Glamour ✨', source: 'instagram', fixed: true },
-    { id: 'p8', url: 'https://images.pexels.com/photos/3738347/pexels-photo-3738347.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'nail-art', description: 'Unhas Decoradas 🌟', source: 'instagram', fixed: true },
-    { id: 'p9', url: 'https://images.pexels.com/photos/5128267/pexels-photo-5128267.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'nail-art', description: 'Design Exclusivo 💅', source: 'instagram', fixed: true },
-    // === MANICURE ===
-    { id: 'p10', url: 'https://images.pexels.com/photos/704815/pexels-photo-704815.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'manicure', description: 'Esmaltação Clássica ❤️', source: 'instagram', fixed: true },
-    { id: 'p11', url: 'https://images.pexels.com/photos/939835/pexels-photo-939835.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'manicure', description: 'Manicure Express ✨', source: 'instagram', fixed: true },
-    // === ACRIGEL ===
-    { id: 'p12', url: 'https://images.pexels.com/photos/3997373/pexels-photo-3997373.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'acrigel', description: 'Acrigel Perfeito 💎', source: 'instagram', fixed: true },
-    // === FIBRA DE VIDRO ===
-    { id: 'p13', url: 'https://images.pexels.com/photos/3997393/pexels-photo-3997393.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'fibra', description: 'Fibra de Vidro 💎', source: 'instagram', fixed: true },
-    // === FOTOS EXTRAS DO PORTFÓLIO ===
-    { id: 'p14', url: 'https://images.pexels.com/photos/3997375/pexels-photo-3997375.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'gel', description: 'Alongamento Natural 🌿', source: 'instagram', fixed: true },
-    { id: 'p15', url: 'https://images.pexels.com/photos/3997385/pexels-photo-3997385.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'nail-art', description: 'Arte nas Unhas 🎨', source: 'instagram', fixed: true },
-    { id: 'p16', url: 'https://images.pexels.com/photos/3997371/pexels-photo-3997371.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'gel', description: 'Gel Cristal ✨', source: 'instagram', fixed: true },
-    { id: 'p17', url: 'https://images.pexels.com/photos/3997395/pexels-photo-3997395.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'manicure', description: 'Mãos Perfeitas 💅', source: 'instagram', fixed: true },
-    { id: 'p18', url: 'https://images.pexels.com/photos/3997381/pexels-photo-3997381.jpeg?auto=compress&cs=tinysrgb&w=600', category: 'gel', description: 'Gel Babyboomer 🤍', source: 'instagram', fixed: true }
-];
 
 // Initialize data from localStorage + Supabase
 function initData() {
@@ -95,11 +66,14 @@ async function initSupabaseSync() {
             const cloudData = await loadFromSupabase();
             
             if (cloudData && cloudData.data && Object.keys(cloudData.data).length > 0) {
-                // Supabase tem dados - verificar qual é mais recente
-                const localUpdated = localStorage.getItem('nailStudioLastUpdate') || '0';
-                const cloudHasClients = cloudData.data.clients && cloudData.data.clients.length > 0;
+                // Supabase tem dados - usar os da nuvem
+                const cloudHasData = (cloudData.data.clients && cloudData.data.clients.length > 0) ||
+                    (cloudData.data.services && cloudData.data.services.length > 0) ||
+                    (cloudData.data.gallery && cloudData.data.gallery.length > 0) ||
+                    (cloudData.data.notes && cloudData.data.notes.length > 0) ||
+                    (cloudData.data.appointments && cloudData.data.appointments.length > 0);
                 
-                if (cloudHasClients) {
+                if (cloudHasData) {
                     data = cloudData.data;
                     if (!data.notifications) data.notifications = [];
                     if (!data.transactions) data.transactions = [];
@@ -117,7 +91,8 @@ async function initSupabaseSync() {
                 }
             } else {
                 // Supabase vazio - fazer upload dos dados locais
-                const hasLocalData = data.clients.length > 0 || data.services.length > 0;
+                const hasLocalData = data.clients.length > 0 || data.services.length > 0 || 
+                    data.gallery.length > 0 || data.notes.length > 0 || data.appointments.length > 0;
                 if (hasLocalData) {
                     await uploadLocalDataToSupabase();
                 }
@@ -773,8 +748,14 @@ function completeAppointment(id) {
     }
 }
 
-function deleteAppointment(id) {
-    if (confirm('Tem certeza que deseja cancelar este agendamento?')) {
+async function deleteAppointment(id) {
+    const confirmed = await showConfirmModal(
+        'Cancelar Agendamento',
+        'Tem certeza que deseja cancelar este agendamento? Esta ação não pode ser desfeita.',
+        'Cancelar Agendamento',
+        '#e74c3c'
+    );
+    if (confirmed) {
         data.appointments = data.appointments.filter(a => a.id !== id);
         saveData();
         showToast('Agendamento cancelado');
@@ -847,11 +828,17 @@ function editClient(id) {
     openModal('clientModal');
 }
 
-function deleteClient(id) {
+async function deleteClient(id) {
     const client = data.clients.find(c => c.id === id);
     if (!client) return;
     
-    if (confirm(`Deseja realmente excluir a cliente "${client.name}"?\n\nIsso também excluirá todos os agendamentos, notas e fotos relacionados a ela.`)) {
+    const confirmed = await showConfirmModal(
+        'Excluir Cliente',
+        `Deseja realmente excluir "${client.name}"? Isso também excluirá todos os agendamentos, notas e fotos relacionados.`,
+        'Excluir',
+        '#e74c3c'
+    );
+    if (confirmed) {
         // Remover cliente
         data.clients = data.clients.filter(c => c.id !== id);
         
@@ -989,8 +976,14 @@ function getCategoryName(category) {
     return categories[category] || category;
 }
 
-function deleteService(id) {
-    if (confirm('Tem certeza que deseja excluir este serviço?')) {
+async function deleteService(id) {
+    const confirmed = await showConfirmModal(
+        'Excluir Serviço',
+        'Tem certeza que deseja excluir este serviço? Esta ação não pode ser desfeita.',
+        'Excluir',
+        '#e74c3c'
+    );
+    if (confirmed) {
         data.services = data.services.filter(s => s.id !== id);
         saveData();
         showToast('Serviço excluído');
@@ -1030,36 +1023,31 @@ function openNewServiceModal() {
 function renderGallery(filter = 'all') {
     const grid = document.getElementById('galleryGrid');
     
-    // Combinar fotos fixas do portfólio com fotos adicionadas pelo usuário
-    // Fotos fixas SEMPRE aparecem (nunca se perdem ao atualizar)
-    const userPhotos = data.gallery.filter(p => !p.fixed);
-    const allPhotos = [...PORTFOLIO_PHOTOS, ...userPhotos];
-    
-    let photos = allPhotos;
-    if (filter === 'instagram') {
-        // Filtro Instagram mostra todas as fotos vindas do portfólio/instagram
-        photos = allPhotos.filter(p => p.source === 'instagram' || p.fixed);
-    } else if (filter !== 'all') {
-        photos = allPhotos.filter(p => p.category === filter);
+    let photos = data.gallery;
+    if (filter !== 'all') {
+        photos = data.gallery.filter(p => p.category === filter);
     }
     
     if (photos.length === 0) {
-        grid.innerHTML = '<p class="empty-message">Nenhuma foto na galeria</p>';
+        grid.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-images" style="font-size: 3rem; color: var(--text-light); margin-bottom: 16px;"></i>
+                <p class="empty-message">Nenhuma foto na galeria</p>
+                <p style="color: var(--text-light); font-size: 0.85rem; margin-top: 8px;">Adicione fotos dos seus trabalhos clicando em "Nova Foto"</p>
+            </div>
+        `;
         return;
     }
     
     grid.innerHTML = photos.map(photo => {
         const client = photo.clientId ? data.clients.find(c => c.id === photo.clientId) : null;
-        const isFixed = photo.fixed;
-        const instaBadge = (photo.source === 'instagram' || photo.fixed) ? '<span class="instagram-badge"><i class="fab fa-instagram"></i></span>' : '';
         
         return `
-            <div class="gallery-item ${isFixed ? 'portfolio-item' : ''}">
+            <div class="gallery-item">
                 <img src="${photo.url}" alt="${photo.description}" loading="lazy" onerror="this.src='https://placehold.co/400x300/e2e8f0/64748b?text=Imagem'">
-                ${instaBadge}
                 <div class="gallery-item-info">
                     <h4>${photo.description || 'Sem descrição'}</h4>
-                    <p>${client ? client.name : isFixed ? '@nailbetinabalduti_' : 'Trabalho pessoal'}</p>
+                    <p>${client ? client.name : 'Trabalho pessoal'}</p>
                     <span class="category-tag">${getCategoryName(photo.category)}</span>
                 </div>
             </div>
@@ -1131,8 +1119,14 @@ function viewNote(id) {
     openModal('viewNoteModal');
 }
 
-function deleteNote(id) {
-    if (confirm('Tem certeza que deseja excluir esta nota?')) {
+async function deleteNote(id) {
+    const confirmed = await showConfirmModal(
+        'Excluir Nota',
+        'Tem certeza que deseja excluir esta nota? Esta ação não pode ser desfeita.',
+        'Excluir',
+        '#e74c3c'
+    );
+    if (confirmed) {
         data.notes = data.notes.filter(n => n.id !== id);
         saveData();
         showToast('Nota excluída');
@@ -2213,78 +2207,51 @@ setInterval(() => {
 const INSTAGRAM_HANDLE = 'nailbetinabalduti_';
 const INSTAGRAM_URL = `https://www.instagram.com/${INSTAGRAM_HANDLE}/`;
 
-// Curated Instagram portfolio - Real nail photos from Betina's work
-const instagramPortfolio = [
-    { url: 'https://images.pexels.com/photos/3997379/pexels-photo-3997379.jpeg?auto=compress&cs=tinysrgb&w=400', caption: 'Alongamento em Gel \u2728', likes: 142, category: 'gel' },
-    { url: 'https://images.pexels.com/photos/3997391/pexels-photo-3997391.jpeg?auto=compress&cs=tinysrgb&w=400', caption: 'Nail Art Floral \ud83c\udf38', likes: 218, category: 'nail-art' },
-    { url: 'https://images.pexels.com/photos/704815/pexels-photo-704815.jpeg?auto=compress&cs=tinysrgb&w=400', caption: 'Esmalta\u00e7\u00e3o Cl\u00e1ssica \u2764\ufe0f', likes: 97, category: 'manicure' },
-    { url: 'https://images.pexels.com/photos/3997383/pexels-photo-3997383.jpeg?auto=compress&cs=tinysrgb&w=400', caption: 'French Moderna \ud83d\udc85', likes: 305, category: 'gel' },
-    { url: 'https://images.pexels.com/photos/3997387/pexels-photo-3997387.jpeg?auto=compress&cs=tinysrgb&w=400', caption: 'Degrad\u00ea Nude \ud83e\uddd1\u200d\ud83c\udfa8', likes: 176, category: 'gel' },
-    { url: 'https://images.pexels.com/photos/939835/pexels-photo-939835.jpeg?auto=compress&cs=tinysrgb&w=400', caption: 'Manicure Express \u2728', likes: 89, category: 'manicure' },
-    { url: 'https://images.pexels.com/photos/1144355/pexels-photo-1144355.jpeg?auto=compress&cs=tinysrgb&w=400', caption: 'Glitter Glamour \u2728', likes: 267, category: 'nail-art' },
-    { url: 'https://images.pexels.com/photos/3997373/pexels-photo-3997373.jpeg?auto=compress&cs=tinysrgb&w=400', caption: 'Acrigel Perfeito \ud83d\udc8e', likes: 198, category: 'acrigel' },
-    { url: 'https://images.pexels.com/photos/3738347/pexels-photo-3738347.jpeg?auto=compress&cs=tinysrgb&w=400', caption: 'Unhas Decoradas \ud83c\udf1f', likes: 234, category: 'nail-art' },
-    { url: 'https://images.pexels.com/photos/3997393/pexels-photo-3997393.jpeg?auto=compress&cs=tinysrgb&w=400', caption: 'Fibra de Vidro \ud83d\udc8e', likes: 156, category: 'fibra' },
-    { url: 'https://images.pexels.com/photos/3997389/pexels-photo-3997389.jpeg?auto=compress&cs=tinysrgb&w=400', caption: 'Gel Moldado \ud83c\udfa8', likes: 189, category: 'gel' },
-    { url: 'https://images.pexels.com/photos/5128267/pexels-photo-5128267.jpeg?auto=compress&cs=tinysrgb&w=400', caption: 'Design Exclusivo \ud83d\udc85', likes: 321, category: 'nail-art' }
-];
-
 function loadInstagramFeed() {
     const grid = document.getElementById('instagramFeedGrid');
     if (!grid) return;
-
-    // Show loading skeletons
-    grid.innerHTML = Array(6).fill('<div class="instagram-skeleton"><div class="skeleton-shimmer"></div></div>').join('');
-
-    setTimeout(() => {
-        const shuffled = [...instagramPortfolio].sort(() => Math.random() - 0.5);
-        const posts = shuffled.slice(0, 6);
-
-        grid.innerHTML = posts.map((post, i) => `
-            <div class="instagram-post" style="animation-delay: ${i * 0.08}s">
-                <div class="instagram-post-img">
-                    <img src="${post.url}" alt="${post.caption}" loading="lazy"
-                        onerror="this.src='https://placehold.co/400x400/e2e8f0/64748b?text=Instagram'">
-                    <div class="instagram-post-overlay">
-                        <span><i class="fas fa-heart"></i> ${post.likes}</span>
-                        <button onclick="event.stopPropagation(); saveInstagramToGallery(${i})" class="btn-save-insta" title="Salvar na Galeria">
-                            <i class="fas fa-bookmark"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="instagram-post-caption">
-                    <strong>@${INSTAGRAM_HANDLE}</strong> ${post.caption}
-                </div>
-            </div>
-        `).join('');
-    }, 600);
+    
+    grid.innerHTML = `
+        <div style="grid-column: 1 / -1; text-align: center; padding: 40px 20px;">
+            <i class="fab fa-instagram" style="font-size: 3rem; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 16px;"></i>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 16px;">Acompanhe nosso trabalho no Instagram!</p>
+            <a href="${INSTAGRAM_URL}" target="_blank" class="btn-primary" style="display: inline-flex; text-decoration: none;">
+                <i class="fab fa-instagram"></i> Seguir @${INSTAGRAM_HANDLE}
+            </a>
+        </div>
+    `;
 }
 
 function refreshInstagramFeed() {
     loadInstagramFeed();
-    showToast('Feed do Instagram atualizado!');
+    showToast('Acesse nosso Instagram para ver as novidades!');
 }
 
-function saveInstagramToGallery(index) {
-    const post = instagramPortfolio[index];
-    if (!post) return;
+// ===== CUSTOM CONFIRM MODAL =====
+let confirmModalResolve = null;
 
-    const photo = {
-        id: generateId(data.gallery),
-        url: post.url,
-        category: post.category || 'instagram',
-        clientId: null,
-        description: post.caption + ' (via Instagram)',
-        source: 'instagram',
-        createdAt: new Date().toISOString()
-    };
-
-    data.gallery.push(photo);
-    saveData();
-    addNotification('photo', `Foto do Instagram salva: ${post.caption}`, { photoId: photo.id });
-    showToast('Foto do Instagram salva na galeria!');
+function showConfirmModal(title, message, btnText = 'Confirmar', btnColor = '#e74c3c') {
+    return new Promise((resolve) => {
+        confirmModalResolve = resolve;
+        document.getElementById('confirmModalTitle').innerHTML = `<i class="fas fa-exclamation-triangle"></i> ${title}`;
+        document.getElementById('confirmModalMessage').textContent = message;
+        const btn = document.getElementById('confirmModalBtn');
+        btn.innerHTML = `<i class="fas fa-check"></i> ${btnText}`;
+        btn.style.background = btnColor;
+        btn.style.boxShadow = `0 4px 14px ${btnColor}4d`;
+        document.getElementById('confirmModal').classList.add('active');
+    });
 }
-`n`n// ===== PWA - SERVICE WORKER & INSTALL =====
+
+function closeConfirmModal(result) {
+    document.getElementById('confirmModal').classList.remove('active');
+    if (confirmModalResolve) {
+        confirmModalResolve(result);
+        confirmModalResolve = null;
+    }
+}
+
+// ===== PWA - SERVICE WORKER & INSTALL =====
 let deferredPrompt = null;
 
 // Registrar Service Worker
