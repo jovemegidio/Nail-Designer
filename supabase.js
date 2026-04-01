@@ -1,11 +1,17 @@
 // ===== SUPABASE CONFIGURATION =====
 // Integração com Supabase para salvar dados na nuvem
+// Configure as variáveis abaixo via config.js ou substitua pelos seus valores
+// NUNCA commite credenciais reais neste arquivo
 
-const SUPABASE_URL = 'https://cmbvocapvhugtcmdjemm.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_3EPPsiGbF2oP53PaBBB1_A_2-jTrlQV';
+const SUPABASE_URL = window.__SUPABASE_URL__ || '';
+const SUPABASE_ANON_KEY = window.__SUPABASE_ANON_KEY__ || '';
+
+if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+    console.warn('⚠️ Supabase não configurado. Crie um arquivo config.js com window.__SUPABASE_URL__ e window.__SUPABASE_ANON_KEY__');
+}
 
 // Inicializar cliente Supabase
-const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const supabaseClient = (SUPABASE_URL && SUPABASE_ANON_KEY) ? supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
 // Status de conexão
 let supabaseConnected = false;
