@@ -26,7 +26,7 @@ let settings = {
         instagram: '@nailbetinabalduti_'
     },
     appearance: {
-        themeColor: '#6c5ce7'
+        themeColor: '#B8860B'
     }
 };
 

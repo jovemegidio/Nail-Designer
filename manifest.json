@@ -1,13 +1,13 @@
 {
-    "name": "BETINA'S Beauty - Meu Planner",
-    "short_name": "Betina's Beauty",
-    "description": "Planner completo para nail designer - Gerencie clientes, agendamentos, galeria e finanças",
+    "name": "Betina Nails Studio - Planner Profissional",
+    "short_name": "Betina Nails",
+    "description": "Sistema profissional de gerenciamento para nail designer - Clientes, agendamentos, galeria e mais",
     "start_url": "./index.html",
     "scope": "./",
     "display": "standalone",
     "orientation": "any",
-    "background_color": "#0f0f1a",
-    "theme_color": "#6c5ce7",
+    "background_color": "#FAF8F5",
+    "theme_color": "#B8860B",
     "lang": "pt-BR",
     "categories": ["business", "productivity", "lifestyle"],
     "icons": [

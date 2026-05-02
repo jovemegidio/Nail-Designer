@@ -3,22 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BETINA'S Beauty - Meu Planner</title>
+    <title>Betina Nails Studio - Planner Profissional</title>
     
     <!-- PWA Meta Tags -->
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#6c5ce7">
+    <meta name="theme-color" content="#B8860B">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Betina's Beauty">
+    <meta name="apple-mobile-web-app-title" content="Betina Nails">
     <link rel="apple-touch-icon" href="Logo - Betina (Icone).png">
-    <meta name="description" content="Planner completo para nail designer - Gerencie clientes, agendamentos, galeria e finanças">
+    <meta name="description" content="Sistema profissional de gerenciamento para nail designer - Clientes, agendamentos, galeria e muito mais">
     
     <link rel="icon" type="image/x-icon" href="Favicon.ico">
     <link rel="shortcut icon" type="image/x-icon" href="Favicon.ico">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="app-container">
@@ -26,35 +28,36 @@
         <aside class="sidebar">
             <div class="logo">
                 <img src="Logo - Betina (Icone).png" alt="Betina Nails" class="logo-img">
+                <span>Betina Nails</span>
             </div>
             <nav class="nav-menu">
                 <a href="#" class="nav-item active" data-page="dashboard">
-                    <i class="fas fa-home"></i>
+                    <i class="fas fa-grid-2"></i>
                     <span>Dashboard</span>
                 </a>
                 <a href="#" class="nav-item" data-page="agenda">
-                    <i class="fas fa-calendar-alt"></i>
+                    <i class="fas fa-calendar"></i>
                     <span>Agenda</span>
                 </a>
                 <a href="#" class="nav-item" data-page="clientes">
-                    <i class="fas fa-users"></i>
+                    <i class="fas fa-user-group"></i>
                     <span>Clientes</span>
                 </a>
                 <a href="#" class="nav-item" data-page="galeria">
-                    <i class="fas fa-images"></i>
+                    <i class="fas fa-image"></i>
                     <span>Galeria</span>
+                </a>
+                <a href="#" class="nav-item" data-page="servicos">
+                    <i class="fas fa-hand-sparkles"></i>
+                    <span>Servicos</span>
+                </a>
+                <a href="#" class="nav-item" data-page="notas">
+                    <i class="fas fa-note-sticky"></i>
+                    <span>Notas</span>
                 </a>
                 <a href="https://www.instagram.com/nailbetinabalduti_/" target="_blank" class="nav-item nav-instagram">
                     <i class="fab fa-instagram"></i>
                     <span>Instagram</span>
-                </a>
-                <a href="#" class="nav-item" data-page="servicos">
-                    <i class="fas fa-spa"></i>
-                    <span>Serviços</span>
-                </a>
-                <a href="#" class="nav-item" data-page="notas">
-                    <i class="fas fa-sticky-note"></i>
-                    <span>Notas</span>
                 </a>
             </nav>
         </aside>
@@ -85,13 +88,13 @@
                     </div>
                     <div class="user-profile-container">
                         <div class="user-profile" onclick="toggleProfileDropdown()">
-                            <img src="https://ui-avatars.com/api/?name=Betina+Balduti&background=6c5ce7&color=fff&size=128&bold=true" alt="Profile" id="headerProfileImg">
+                            <img src="https://ui-avatars.com/api/?name=Betina+Balduti&background=B8860B&color=fff&size=128&bold=true" alt="Profile" id="headerProfileImg">
                             <span id="headerProfileName">Betina</span>
                             <i class="fas fa-chevron-down dropdown-arrow"></i>
                         </div>
                         <div class="profile-dropdown" id="profileDropdown">
                             <div class="dropdown-header">
-                                <img src="https://ui-avatars.com/api/?name=Betina+Balduti&background=6c5ce7&color=fff&size=128&bold=true" alt="Profile" id="dropdownProfileImg">
+                                <img src="https://ui-avatars.com/api/?name=Betina+Balduti&background=B8860B&color=fff&size=128&bold=true" alt="Profile" id="dropdownProfileImg">
                                 <div>
                                     <strong id="dropdownProfileName">Betina</strong>
                                     <p id="dropdownProfileEmail">@nailbetinabalduti_</p>
@@ -133,7 +136,7 @@
                     
                     <div class="stats-grid">
                         <div class="stat-card">
-                            <div class="stat-icon" style="background: #6c5ce7;">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #B8860B 0%, #D4A853 100%);">
                                 <i class="fas fa-calendar-check"></i>
                             </div>
                             <div class="stat-info">
@@ -142,8 +145,8 @@
                             </div>
                         </div>
                         <div class="stat-card">
-                            <div class="stat-icon" style="background: #8b7cf7;">
-                                <i class="fas fa-users"></i>
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #4CAF50 0%, #81C784 100%);">
+                                <i class="fas fa-user-group"></i>
                             </div>
                             <div class="stat-info">
                                 <h3 id="totalClients">0</h3>
@@ -151,21 +154,21 @@
                             </div>
                         </div>
                         <div class="stat-card">
-                            <div class="stat-icon" style="background: #5541d7;">
-                                <i class="fas fa-dollar-sign"></i>
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #2196F3 0%, #64B5F6 100%);">
+                                <i class="fas fa-brazilian-real-sign"></i>
                             </div>
                             <div class="stat-info">
                                 <h3 id="monthRevenue">R$ 0</h3>
-                                <p>Receita do Mês</p>
+                                <p>Receita do Mes</p>
                             </div>
                         </div>
                         <div class="stat-card">
-                            <div class="stat-icon" style="background: #a29bfe;">
-                                <i class="fas fa-star"></i>
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #9C27B0 0%, #BA68C8 100%);">
+                                <i class="fas fa-check-circle"></i>
                             </div>
                             <div class="stat-info">
                                 <h3 id="completedServices">0</h3>
-                                <p>Serviços Realizados</p>
+                                <p>Servicos Realizados</p>
                             </div>
                         </div>
                     </div>
@@ -652,7 +655,7 @@
                 <div class="form-group">
                     <label>Foto de Perfil</label>
                     <div class="profile-photo-upload">
-                        <img src="https://ui-avatars.com/api/?name=Betina+Balduti&background=6c5ce7&color=fff&size=128&bold=true" alt="Profile" id="profilePhotoPreview">
+                        <img src="https://ui-avatars.com/api/?name=Betina+Balduti&background=B8860B&color=fff&size=128&bold=true" alt="Profile" id="profilePhotoPreview">
                         <div class="photo-upload-actions">
                             <input type="file" id="profilePhotoInput" accept="image/*" onchange="previewProfilePhoto(event)">
                             <label for="profilePhotoInput" class="btn-secondary">
@@ -741,29 +744,29 @@
                 <div class="form-group">
                     <label>Cor Principal</label>
                     <div class="theme-colors">
-                        <input type="radio" name="themeColor" value="#6c5ce7" id="theme1" checked>
-                        <label for="theme1" style="background: #6c5ce7;" title="Roxo Vibrante"></label>
+                        <input type="radio" name="themeColor" value="#B8860B" id="theme1" checked>
+                        <label for="theme1" style="background: #B8860B;" title="Dourado Elegante"></label>
                         
-                        <input type="radio" name="themeColor" value="#9b59b6" id="theme2">
-                        <label for="theme2" style="background: #9b59b6;" title="Ametista"></label>
+                        <input type="radio" name="themeColor" value="#C9A961" id="theme2">
+                        <label for="theme2" style="background: #C9A961;" title="Champagne"></label>
                         
-                        <input type="radio" name="themeColor" value="#8e44ad" id="theme3">
-                        <label for="theme3" style="background: #8e44ad;" title="Roxo Profundo"></label>
+                        <input type="radio" name="themeColor" value="#D4A853" id="theme3">
+                        <label for="theme3" style="background: #D4A853;" title="Ouro Claro"></label>
                         
-                        <input type="radio" name="themeColor" value="#a29bfe" id="theme4">
-                        <label for="theme4" style="background: #a29bfe;" title="Lilás Suave"></label>
+                        <input type="radio" name="themeColor" value="#8B6914" id="theme4">
+                        <label for="theme4" style="background: #8B6914;" title="Bronze"></label>
                         
-                        <input type="radio" name="themeColor" value="#b388ff" id="theme5">
-                        <label for="theme5" style="background: #b388ff;" title="Lavanda"></label>
+                        <input type="radio" name="themeColor" value="#E8B4B8" id="theme5">
+                        <label for="theme5" style="background: #E8B4B8;" title="Rose"></label>
                         
-                        <input type="radio" name="themeColor" value="#7c4dff" id="theme6">
-                        <label for="theme6" style="background: #7c4dff;" title="Violeta Elétrico"></label>
+                        <input type="radio" name="themeColor" value="#D4A5A5" id="theme6">
+                        <label for="theme6" style="background: #D4A5A5;" title="Nude Rose"></label>
                         
-                        <input type="radio" name="themeColor" value="#d63384" id="theme7">
-                        <label for="theme7" style="background: #d63384;" title="Magenta"></label>
+                        <input type="radio" name="themeColor" value="#9C7C6C" id="theme7">
+                        <label for="theme7" style="background: #9C7C6C;" title="Nude Marrom"></label>
                         
-                        <input type="radio" name="themeColor" value="#e040fb" id="theme8">
-                        <label for="theme8" style="background: #e040fb;" title="Pink Neon"></label>
+                        <input type="radio" name="themeColor" value="#7D5A50" id="theme8">
+                        <label for="theme8" style="background: #7D5A50;" title="Marrom Quente"></label>
                     </div>
                 </div>
                 <div class="form-actions">
